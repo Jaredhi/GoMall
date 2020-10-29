@@ -14,6 +14,7 @@
         <module>gomall-order</module>
         <module>gomall-product</module>
         <module>gomall-ware</module>
+        <module>gomall-common</module>
     </modules>
 
 
