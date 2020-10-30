@@ -3,7 +3,7 @@ spring:
   datasource:
     username: root
     password: rootroot
-    url: jdbc:mysql://192.168.108.129:3306/gomall_oms
+    url: jdbc:mysql://192.168.108.131:3306/gomall_oms
     driver-class-name: com.mysql.jdbc.Driver
 
 # 映射mapper文件

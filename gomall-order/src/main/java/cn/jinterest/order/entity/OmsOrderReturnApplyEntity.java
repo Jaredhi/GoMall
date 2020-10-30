@@ -10,7 +10,7 @@ import lombok.Data;
 
 /**
  * 订单退货申请
- * 
+ *
  * @author JInterest
  * @email hwj2586@163.com
  * @date 2020-10-29 22:48:20
@@ -100,7 +100,7 @@ public class OmsOrderReturnApplyEntity implements Serializable {
 	/**
 	 * 描述
 	 */
-	private String description述;
+	private String description;
 	/**
 	 * 凭证图片，以逗号隔开
 	 */
