@@ -1,0 +1,22 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: gomall-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: route_baidu
+          uri: http://www.baidu.com
+          predicates:
+            - Query=url, baidu
+        - id: qq_route
+          uri: https://www.qq.com/
+          predicates:
+            - Query=url, qq
+
+

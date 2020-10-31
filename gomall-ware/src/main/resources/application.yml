@@ -1,16 +1,32 @@
-# 配置数据库
+# 服务端口
+server:
+  port: 11000
+
 spring:
+  # 服务名
+  application:
+    name: gomall-ware
+  # 数据源
   datasource:
     username: root
     password: rootroot
     url: jdbc:mysql://192.168.108.131:3306/gomall_wms
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    # nacos配置
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
 
-# 映射mapper文件
+# mybatis
 mybatis-plus:
-  mapper-locations: classpath:/mapper/**/*.xml
+  mapper-locations: classpath*:/mapper/**/*.xml
   global-config:
     db-config:
       id-type: auto
-server:
-  port: 11000
+# 日志
+logging:
+  level:
+    cn.jinterest: info
+
+

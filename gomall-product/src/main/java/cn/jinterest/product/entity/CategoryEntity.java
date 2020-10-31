@@ -1,15 +1,19 @@
 package cn.jinterest.product.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
  * 商品三级分类
- * 
+ *
  * @author JInterest
  * @email hwj2586@163.com
  * @date 2020-10-29 21:09:49
@@ -56,5 +60,12 @@ public class CategoryEntity implements Serializable {
 	 * 商品数量
 	 */
 	private Integer productCount;
+
+	/**
+	 * 子分类
+	 */
+	@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
+	@TableField(exist = false) //不是表中的数据
+	private List<CategoryEntity> children;
 
 }

@@ -15,7 +15,14 @@
         <module>gomall-product</module>
         <module>gomall-ware</module>
         <module>gomall-common</module>
+        <module>renren-fast</module>
+        <module>renren-generator</module>
+        <module>gomall-gateway</module>
     </modules>
 
+    <properties>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Greenwich.SR5</spring-cloud.version>
+    </properties>
 
 </project>
