@@ -76,6 +76,17 @@ public class BrandController {
     }
 
     /**
+     * 修改
+     */
+    @RequestMapping("/update/status")
+    //@RequiresPermissions("product:brand:update")
+    public R updateStatus(@RequestBody BrandEntity brand){
+
+        brandService.updateById(brand);
+        return R.ok();
+    }
+
+    /**
      * 删除
      */
     @RequestMapping("/delete")
