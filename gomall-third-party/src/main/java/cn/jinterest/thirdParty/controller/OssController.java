@@ -2,20 +2,9 @@ package cn.jinterest.thirdParty.controller;
 
 import cn.jinterest.common.utils.R;
 import cn.jinterest.thirdParty.component.OssComponent;
-import cn.jinterest.thirdParty.ossutils.OssPropertiesUtil;
-import com.aliyun.oss.OSS;
-import com.aliyun.oss.common.utils.BinaryUtil;
-import com.aliyun.oss.model.MatchMode;
-import com.aliyun.oss.model.PolicyConditions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
