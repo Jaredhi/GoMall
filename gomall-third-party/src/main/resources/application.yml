@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    alicloud:
+      access-key: LTAI4GBwjzbDYoMyH5xgFfT1
+      secret-key: M800BadHvRvdSGMmKrv2Uf9JBIkE46
+      oss:
+        endpoint: oss-cn-guangzhou.aliyuncs.com
+        bucket: interest-mall
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: gomall-third-party
+server:
+  port: 30000
+
+logging:
+  level:
+    com.bigdata.gulimall.product: debug
