@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import cn.jinterest.product.entity.AttrEntity;
+import cn.jinterest.product.service.AttrAttrgroupRelationService;
+import cn.jinterest.product.service.AttrService;
 import cn.jinterest.product.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +33,22 @@ public class AttrGroupController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private AttrService attrService;
+
+
+    /**
+     * 获取分组关联的属性
+     * @param attrgroupId
+     * @return
+     */
+    @GetMapping("/{attrgroupId}/attr/relation")
+    public R attrRelation(@PathVariable("attrgroupId") Long attrgroupId) {
+        List<AttrEntity> entityList = attrService.getAttrRelation(attrgroupId);
+
+        return R.ok().put("data", entityList);
+    }
 
     /**
      * 分页查询列表，默认id=0，查所有

@@ -1,6 +1,5 @@
 package cn.jinterest.common.constant;
 
-import lombok.Data;
 
 public class ProductConstant {
 

@@ -9,7 +9,7 @@ import lombok.Data;
 
 /**
  * 商品属性
- * 
+ *
  * @author JInterest
  * @email hwj2586@163.com
  * @date 2020-10-29 21:09:50
@@ -32,6 +32,10 @@ public class AttrEntity implements Serializable {
 	 * 是否需要检索[0-不需要，1-需要]
 	 */
 	private Integer searchType;
+	/**
+	 * 值类型[0-为单个值，1-可以选择多个值]
+	 */
+	private Integer valueType;
 	/**
 	 * 属性图标
 	 */
