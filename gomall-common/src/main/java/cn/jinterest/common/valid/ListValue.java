@@ -11,7 +11,7 @@ import static java.lang.annotation.ElementType.TYPE_USE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Documented
-@Constraint(validatedBy = { ListValueConstraintValidator.class })
+@Constraint(validatedBy = { ListValueConstraintValidator.class })//关联自定义的校验器和自定义的校验注解
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 public @interface ListValue {

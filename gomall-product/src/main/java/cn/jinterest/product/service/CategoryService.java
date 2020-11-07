@@ -21,5 +21,21 @@ public interface CategoryService extends IService<CategoryEntity> {
     List<CategoryEntity> listWithTree();
 
     boolean removeByMuneByIds(List<Long> asList);
+
+    /**
+     * 根据三级分类id，找到三级分类的完整路径
+     * @param id 三级分类id
+     * @return
+     */
+    Long[] findCatelogPath(Long id);
+
+
+
+    /**
+     * 根据三级分类id，找到第三级分类的路径名
+     * @param id 三级分类id
+     * @return
+     */
+    String findCatelogPathName(Long id);
 }
 

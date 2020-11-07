@@ -1,14 +1,12 @@
 package cn.jinterest.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import cn.jinterest.product.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.jinterest.product.entity.AttrGroupEntity;
 import cn.jinterest.product.service.AttrGroupService;
@@ -30,6 +28,20 @@ public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
 
+    @Autowired
+    private CategoryService categoryService;
+
+    /**
+     * 分页查询列表，默认id=0，查所有
+     */
+    @RequestMapping("/list/{catelogId}")
+    //@RequiresPermissions("product:attrgroup:list")
+    public R listById(@RequestParam Map<String, Object> params,
+                      @PathVariable("catelogId") Long catelogId){
+        PageUtils page =  attrGroupService.queryPage(params,catelogId);
+        return R.ok().put("page", page);
+    }
+
     /**
      * 列表
      */
@@ -43,15 +55,18 @@ public class AttrGroupController {
 
 
     /**
-     * 信息
+     * 属性分组信息
      */
     @RequestMapping("/info/{attrGroupId}")
     //@RequiresPermissions("product:attrgroup:info")
     public R info(@PathVariable("attrGroupId") Long attrGroupId){
-		AttrGroupEntity attrGroup = attrGroupService.getById(attrGroupId);
+        AttrGroupEntity attrGroup = attrGroupService.getById(attrGroupId);
 
+        Long[] catelogPath = categoryService.findCatelogPath(attrGroup.getCatelogId());
+        attrGroup.setCatelogPath(catelogPath);
         return R.ok().put("attrGroup", attrGroup);
     }
+
 
     /**
      * 保存

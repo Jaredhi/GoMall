@@ -2,6 +2,8 @@ package cn.jinterest.product.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -63,6 +65,50 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return baseMapper.deleteBatchIds(asList) > 0;
     }
 
+    /**
+     * 根据三级分类id，找到三级分类的完整路径
+     *
+     * @param id 三级分类id
+     * @return
+     */
+    @Override
+    public Long[] findCatelogPath(Long id) {
+        List<Long> list = new ArrayList<Long>();
+
+        List<Long> paths = findParentPath(id, list);
+        // 逆序集合
+        Collections.reverse(paths);
+        return paths.toArray(new Long[paths.size()]);
+    }
+    /**
+     * 根据三级分类id，找到第三级分类的路径
+     *
+     * @param id 三级分类id
+     * @return
+     */
+    @Override
+    public String findCatelogPathName(Long id) {
+        //得到三级分类名
+        CategoryEntity ce = this.getById(id);
+        return ce.getName();
+    }
+
+    /**
+     * 递归查询分类路径
+     *
+     * @param id   分类id
+     * @param list 存储分类id的集合
+     * @return [三级, 二级, 一级]
+     */
+    private List<Long> findParentPath(Long id, List<Long> list) {
+        // 存储当前分类的id
+        list.add(id);
+        CategoryEntity categoryEntity = this.getById(id);
+        if (categoryEntity.getParentCid() != 0) {
+            findParentPath(categoryEntity.getParentCid(), list);
+        }
+        return list;
+    }
     /**
      * 递归查询所有菜单的子菜单
      *
