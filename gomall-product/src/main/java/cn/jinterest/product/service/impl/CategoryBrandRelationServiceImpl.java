@@ -1,5 +1,11 @@
 package cn.jinterest.product.service.impl;
 
+import cn.jinterest.product.dao.BrandDao;
+import cn.jinterest.product.dao.CategoryDao;
+import cn.jinterest.product.entity.BrandEntity;
+import cn.jinterest.product.entity.CategoryEntity;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -16,6 +22,12 @@ import cn.jinterest.product.service.CategoryBrandRelationService;
 @Service("categoryBrandRelationService")
 public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandRelationDao, CategoryBrandRelationEntity> implements CategoryBrandRelationService {
 
+    @Autowired
+    private CategoryDao categoryDao;
+
+    @Autowired
+    private BrandDao brandDao;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<CategoryBrandRelationEntity> page = this.page(
@@ -26,4 +38,46 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
         return new PageUtils(page);
     }
 
+
+    @Override
+    public void saveDetail(CategoryBrandRelationEntity categoryBrandRelation) {
+        Long brandId = categoryBrandRelation.getBrandId();
+        Long catelogId = categoryBrandRelation.getCatelogId();
+        // TODO 优化查询品牌名字和分类名字的sql
+        // 1、查询品牌名字
+        BrandEntity brandEntity = brandDao.selectById(brandId);
+        // 1、查询分类的名字
+        CategoryEntity categoryEntity = categoryDao.selectById(catelogId);
+
+        categoryBrandRelation.setBrandName(brandEntity.getName());
+        categoryBrandRelation.setCatelogName(categoryEntity.getName());
+        String a = categoryBrandRelation.getCatelogName();
+        System.out.println(a);
+
+        this.save(categoryBrandRelation);
+    }
+
+    /**
+     * 级联更新
+     * @param brandId
+     * @param name
+     */
+    @Override
+    public void updateBrand(Long brandId, String name) {
+        CategoryBrandRelationEntity categoryBrandRelationEntity = new CategoryBrandRelationEntity();
+        categoryBrandRelationEntity.setBrandId(brandId);
+        categoryBrandRelationEntity.setBrandName(name);
+
+        this.update(categoryBrandRelationEntity, new UpdateWrapper<CategoryBrandRelationEntity>().eq("brand_id", brandId));
+    }
+
+    /**
+     * 分类表数据修改时 --> 更新分类名称
+     * @param catId
+     * @param name
+     */
+    @Override
+    public void updateCategory(Long catId, String name) {
+        this.baseMapper.updateCategory(catId, name);
+    }
 }

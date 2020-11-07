@@ -56,7 +56,7 @@ public class BrandEntity implements Serializable {
 	 * 检索首字母
 	 */
 	@NotEmpty
-	@Pattern(regexp = "^[A-Z]$", message = "检索首字母必须是一个A-Z的字母",groups = {UpdateGroup.class,AddGroup.class})
+	@Pattern(regexp = "^[a-zA-Z]$", message = "检索首字母必须是一个a-z或A-Z的字母",groups = {UpdateGroup.class,AddGroup.class})
 	private String firstLetter;
 	/**
 	 * 排序

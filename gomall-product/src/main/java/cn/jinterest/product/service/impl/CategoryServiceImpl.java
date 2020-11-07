@@ -1,5 +1,8 @@
 package cn.jinterest.product.service.impl;
 
+import cn.jinterest.product.service.CategoryBrandRelationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,10 +20,15 @@ import cn.jinterest.common.utils.Query;
 import cn.jinterest.product.dao.CategoryDao;
 import cn.jinterest.product.entity.CategoryEntity;
 import cn.jinterest.product.service.CategoryService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+
+    @Autowired
+    private CategoryBrandRelationService categoryBrandRelationService;
+
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -91,6 +99,18 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         //得到三级分类名
         CategoryEntity ce = this.getById(id);
         return ce.getName();
+    }
+
+    /**
+     * 级联更新
+     * @param category
+     */
+    @Transactional
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        // 更新关联表
+        categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
     }
 
     /**
