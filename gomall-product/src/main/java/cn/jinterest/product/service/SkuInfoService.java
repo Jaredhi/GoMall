@@ -21,5 +21,11 @@ public interface SkuInfoService extends IService<SkuInfoEntity> {
      * @param skuInfoEntity
      */
     void saveSkuInfo(SkuInfoEntity skuInfoEntity);
+    /**
+     * sku检索分页查询
+     * @param params
+     * @return
+     */
+    PageUtils queryPageByCondition(Map<String, Object> params);
 }
 

@@ -173,7 +173,36 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         }
 
     }
+    @Override
+    public PageUtils queryPageByCondition(Map<String, Object> params) {
+        QueryWrapper<SpuInfoEntity> wrapper = new QueryWrapper<>();
 
+        String key = (String) params.get("key");
+        String status = (String) params.get("status");
+        String catelogId = (String) params.get("catelogId");
+        String brandId = (String) params.get("brandId");
+
+        if (!StringUtils.isEmpty(key)) {
+            wrapper.and( (w) -> {
+                w.eq("id", key).or().like("spu_name", key);
+            });
+        }
+        if (!StringUtils.isEmpty(status)) {
+            wrapper.eq("publish_status", status);
+        }
+        if (!StringUtils.isEmpty(catelogId) && !"0".equalsIgnoreCase(catelogId)) {
+            wrapper.eq("catalog_id", catelogId);
+        }
+        if (!StringUtils.isEmpty(brandId) && !"0".equalsIgnoreCase(brandId)) {
+            wrapper.eq("brand_id", brandId);
+        }
+
+        IPage<SpuInfoEntity> page = this.page(
+                new Query<SpuInfoEntity>().getPage(params),wrapper
+        );
+
+        return new PageUtils(page);
+    }
     // TODO 代码优化
     /**
      * 1、保存商品spu基本信息  pms_spu_info
@@ -189,6 +218,8 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
         log.debug("当前线程....{}---->{} ------- 保存商品spu基本信息",Thread.currentThread().getId(),Thread.currentThread().getName());
     }
+
+
 
     /**
      * 2、保存Spu的描述图片 pms_spu_info_desc
