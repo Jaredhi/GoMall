@@ -8,6 +8,7 @@ import cn.jinterest.product.entity.AttrEntity;
 import cn.jinterest.product.service.AttrAttrgroupRelationService;
 import cn.jinterest.product.service.AttrService;
 import cn.jinterest.product.service.CategoryService;
+import cn.jinterest.product.vo.AttrGroupRelationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,44 @@ public class AttrGroupController {
     @Autowired
     private AttrService attrService;
 
+    @Autowired
+    private AttrAttrgroupRelationService attrAttrgroupRelationService;
 
+    /**
+     * 添加属性与分组关联关系
+     * @param vos
+     * @return
+     */
+    @PostMapping("/attr/relation")
+    public R addRelation(@RequestBody List<AttrGroupRelationVo> vos){
+
+        attrAttrgroupRelationService.saveBatch(vos);
+        return R.ok();
+    }
+    /**
+     * 删除属性与分组的关联关系
+     * @param attrGroupRelationVos
+     * @return
+     */
+    @PostMapping("/attr/relation/delete")
+    public R deleteAttrRelation(@RequestBody AttrGroupRelationVo[] attrGroupRelationVos) {
+
+        attrService.deleteAttrRelation(attrGroupRelationVos);
+        return R.ok();
+    }
+
+    /**
+     * 获取分组未关联的属性
+     * @param attrgroupId
+     * @param params
+     * @return
+     */
+    @GetMapping("/{attrgroupId}/noattr/relation")
+    public R attrNoRelation(@PathVariable("attrgroupId") Long attrgroupId,
+                            @RequestParam Map<String, Object> params){
+        PageUtils page = attrService.getNoRelationAttr(params,attrgroupId);
+        return R.ok().put("page",page);
+    }
     /**
      * 获取分组关联的属性
      * @param attrgroupId
@@ -104,6 +142,7 @@ public class AttrGroupController {
     @RequestMapping("/update")
     //@RequiresPermissions("product:attrgroup:update")
     public R update(@RequestBody AttrGroupEntity attrGroup){
+        //TODO:修改分类的时候应该把底下的规格属性也跟着修改
 		attrGroupService.updateById(attrGroup);
 
         return R.ok();

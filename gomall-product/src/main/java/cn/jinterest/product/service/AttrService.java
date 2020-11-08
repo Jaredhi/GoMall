@@ -1,5 +1,6 @@
 package cn.jinterest.product.service;
 
+import cn.jinterest.product.vo.AttrGroupRelationVo;
 import cn.jinterest.product.vo.AttrRespVo;
 import cn.jinterest.product.vo.AttrVo;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -33,5 +34,15 @@ public interface AttrService extends IService<AttrEntity> {
      * @return
      */
     List<AttrEntity> getAttrRelation(Long attrgroupId);
+
+    /**
+     * 获取分组未关联的属性
+     * @param params
+     * @param attrgroupId
+     * @return
+     */
+    PageUtils getNoRelationAttr(Map<String, Object> params, Long attrgroupId);
+
+    void deleteAttrRelation(AttrGroupRelationVo[] attrGroupRelationVos);
 }
 

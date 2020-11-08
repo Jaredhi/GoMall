@@ -69,7 +69,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Override
     public boolean removeByMuneByIds(List<Long> asList) {
-        // TODO 检查当前删除的菜单，是否被别的地方引用
+        // TODO 检查当前删除的菜单，是否被别的地方引用,例如 属性分组有引用分类,品牌也有引用
         return baseMapper.deleteBatchIds(asList) > 0;
     }
 
