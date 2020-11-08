@@ -1,9 +1,11 @@
 package cn.jinterest.product.service;
 
+import cn.jinterest.product.entity.BrandEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.product.entity.CategoryBrandRelationEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,5 +28,12 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
     void updateBrand(Long brandId, String name);
 
     void updateCategory(Long catId, String name);
+
+    /**
+     * 获取分类关联的品牌
+     * @param catId
+     * @return
+     */
+    List<BrandEntity> getBrandsByCatId(Long catId);
 }
 

@@ -91,7 +91,7 @@ public class BrandController {
     }
 
     /**
-     * 删除
+     * 删除 TODO ： 删除的时候同时删除关联分类
      */
     @RequestMapping("/delete")
     //@RequiresPermissions("product:brand:delete")

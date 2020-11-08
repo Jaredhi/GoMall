@@ -1,7 +1,11 @@
 package cn.jinterest.product.service.impl;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -24,6 +28,28 @@ public class SpuImagesServiceImpl extends ServiceImpl<SpuImagesDao, SpuImagesEnt
         );
 
         return new PageUtils(page);
+    }
+
+    /**
+     * 保存spu的图片集 pms_spu_images
+     * @param spuId
+     * @param images
+     */
+    @Override
+    public void saveImages(Long spuId, List<String> images) {
+
+        // TODO 优化代码
+        if (images == null || images.size() == 0) {
+                //不处理
+        } else {
+            List<SpuImagesEntity> collect = images.stream().map(item -> {
+                SpuImagesEntity spuImagesEntity = new SpuImagesEntity();
+                spuImagesEntity.setSpuId(spuId);
+                spuImagesEntity.setImgUrl(item);
+                return spuImagesEntity;
+            }).collect(Collectors.toList());
+            this.saveBatch(collect);
+        }
     }
 
 }

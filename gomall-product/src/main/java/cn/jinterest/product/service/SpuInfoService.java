@@ -1,5 +1,6 @@
 package cn.jinterest.product.service;
 
+import cn.jinterest.product.vo.SpuSaveVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.product.entity.SpuInfoEntity;
@@ -16,5 +17,10 @@ import java.util.Map;
 public interface SpuInfoService extends IService<SpuInfoEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void saveSpuInfo(SpuSaveVo spuSaveVo);
+
+    void saveBaseSpuInfo(SpuInfoEntity infoEntity);
+
 }
 
