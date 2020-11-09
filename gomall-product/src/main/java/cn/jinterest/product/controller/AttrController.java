@@ -1,8 +1,11 @@
 package cn.jinterest.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import cn.jinterest.product.entity.ProductAttrValueEntity;
+import cn.jinterest.product.service.ProductAttrValueService;
 import cn.jinterest.product.vo.AttrRespVo;
 import cn.jinterest.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +29,21 @@ import cn.jinterest.common.utils.R;
 public class AttrController {
     @Autowired
     private AttrService attrService;
+    @Autowired
+    private ProductAttrValueService productAttrValueService;
 
+    /**
+     * 获取spu规格.进行回调显示
+     * @param spuId 商品spuId
+     * @return
+     */
+    @GetMapping("/base/listforspu/{spuId}")
+    public R baseAttrlistforspu(@PathVariable("spuId") Long spuId){
 
+        List<ProductAttrValueEntity> entities = productAttrValueService.baseAttrlistforspu(spuId);
+
+        return R.ok().put("data",entities);
+    }
     /**
      * 获取分类规格参数
      * @param params
@@ -88,6 +104,19 @@ public class AttrController {
         return R.ok();
     }
 
+    /**
+     * 根据spu修改商品spu信息 修改商品规格
+     * @param spuId
+     * @param entities
+     * @return
+     */
+    @PostMapping("/update/{spuId}")
+    public R updateSpuAttr(@PathVariable("spuId") Long spuId,
+                           @RequestBody List<ProductAttrValueEntity> entities){
+        productAttrValueService.updateSpuAttr(spuId,entities);
+
+        return R.ok();
+    }
     /**
      * 删除
      */
