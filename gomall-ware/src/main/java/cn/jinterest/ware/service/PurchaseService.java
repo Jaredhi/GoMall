@@ -1,9 +1,11 @@
 package cn.jinterest.ware.service;
 
+import cn.jinterest.ware.vo.MergeVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.ware.entity.PurchaseEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,22 @@ import java.util.Map;
 public interface PurchaseService extends IService<PurchaseEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    /**
+     * 查询未领取的采购单
+     * @param params
+     * @return
+     */
+    PageUtils queryPageUnreceivePurchase(Map<String, Object> params);
+    /**
+     * 合并采购需求
+     * @param mergeVo
+     */
+    void mergePurchase(MergeVo mergeVo);
+
+    /**
+     * 领取采购单
+     * @param ids
+     */
+    void received(List<Long> ids);
 }
 
