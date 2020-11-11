@@ -1,6 +1,7 @@
 package cn.jinterest.ware.service;
 
 import cn.jinterest.ware.vo.MergeVo;
+import cn.jinterest.ware.vo.PurchaseDoneVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.ware.entity.PurchaseEntity;
@@ -35,5 +36,10 @@ public interface PurchaseService extends IService<PurchaseEntity> {
      * @param ids
      */
     void received(List<Long> ids);
+    /**
+     * 完成采购单
+     * @param doneVo
+     */
+    void done(PurchaseDoneVo doneVo);
 }
 

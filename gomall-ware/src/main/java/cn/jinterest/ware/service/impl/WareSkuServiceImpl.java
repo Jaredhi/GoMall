@@ -1,6 +1,15 @@
 package cn.jinterest.ware.service.impl;
 
+import cn.jinterest.common.utils.R;
+import cn.jinterest.ware.feign.OrderFeignService;
+import cn.jinterest.ware.feign.ProductFeignService;
+import cn.jinterest.ware.service.WareOrderTaskDetailService;
+import cn.jinterest.ware.service.WareOrderTaskService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -11,11 +20,27 @@ import cn.jinterest.common.utils.Query;
 import cn.jinterest.ware.dao.WareSkuDao;
 import cn.jinterest.ware.entity.WareSkuEntity;
 import cn.jinterest.ware.service.WareSkuService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-
+@Slf4j
 @Service("wareSkuService")
 public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> implements WareSkuService {
+    @Autowired
+    private WareSkuDao wareSkuDao;
+
+    @Autowired
+    private ProductFeignService productFeignService;
+
+    @Autowired
+    private WareOrderTaskService wareOrderTaskService;
+
+    @Autowired
+    private WareOrderTaskDetailService wareOrderTaskDetailService;
+
+    @Autowired
+    private OrderFeignService orderFeignService;
+
 
     /**
      * 条件分页查询
@@ -48,5 +73,46 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
 
         return new PageUtils(page);
     }
+
+    /**
+     * 将成功采购项的进行入库
+     *
+     * @param skuId  商品skuid
+     * @param wareId 仓库id
+     * @param skuNum 采购数量
+     */
+    @Transactional
+    @Override
+    public void addStock(Long skuId, Long wareId, Integer skuNum) {
+        //1、判断如果还没有这个库存记录  新增
+        List<WareSkuEntity> entities = wareSkuDao.selectList(new QueryWrapper<WareSkuEntity>().eq("sku_id", skuId).eq("ware_id", wareId));
+        if (entities == null || entities.size() == 0) {
+            WareSkuEntity skuEntity = new WareSkuEntity();
+            skuEntity.setSkuId(skuId);
+            skuEntity.setStock(skuNum);
+            skuEntity.setWareId(wareId);
+            skuEntity.setStockLocked(0);
+            //远程查询sku的名字，如果失败，整个事务无需回滚
+            //1、自己catch异常
+            //TODO 还可以用什么办法让异常出现以后不回滚？高级
+            try {
+                R info = productFeignService.info(skuId);
+                Map<String, Object> data = (Map<String, Object>) info.get("skuInfo");
+
+                if (info.getCode() == 0) {
+                    skuEntity.setSkuName((String) data.get("skuName"));
+                }
+            } catch (Exception e) {
+                log.debug("远程查询sku的名字，如果失败，整个事务无需回滚");
+            }
+
+
+            wareSkuDao.insert(skuEntity);
+        } else {
+            wareSkuDao.addStock(skuId, wareId, skuNum); // 更新库存信息
+        }
+
+    }
+
 
 }
