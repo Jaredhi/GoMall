@@ -1,9 +1,11 @@
 package cn.jinterest.ware.service;
 
+import cn.jinterest.common.to.SkuHasStockVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.ware.entity.WareSkuEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,5 +26,12 @@ public interface WareSkuService extends IService<WareSkuEntity> {
      * @param skuNum 采购数量
      */
     void addStock(Long skuId, Long wareId, Integer skuNum);
+    /**
+     * 查询sku是否有库存
+     * @param skuIds 要查询的skuId集合
+     * @return
+     */
+    List<SkuHasStockVo> getSkusHasStock(List<Long> skuIds);
+
 }
 

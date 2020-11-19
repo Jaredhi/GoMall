@@ -1,5 +1,6 @@
 package cn.jinterest.ware.service.impl;
 
+import cn.jinterest.common.to.SkuHasStockVo;
 import cn.jinterest.common.utils.R;
 import cn.jinterest.ware.feign.OrderFeignService;
 import cn.jinterest.ware.feign.ProductFeignService;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -22,6 +25,8 @@ import cn.jinterest.ware.entity.WareSkuEntity;
 import cn.jinterest.ware.service.WareSkuService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Slf4j
 @Service("wareSkuService")
@@ -41,6 +46,8 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
     @Autowired
     private OrderFeignService orderFeignService;
 
+    @Autowired
+    private WareSkuService wareSkuService;
 
     /**
      * 条件分页查询
@@ -114,5 +121,25 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
 
     }
 
+    /**
+     * 查询sku是否有库存
+     *
+     * @param skuIds 要查询的skuId集合
+     * @return
+     */
+    @Override
+    public List<SkuHasStockVo> getSkusHasStock(List<Long> skuIds) {
+
+        List<SkuHasStockVo> collect = skuIds.stream().map(skuId -> {
+
+            SkuHasStockVo vo = new SkuHasStockVo();
+            Long count = baseMapper.getSkuStock(skuId);
+
+            vo.setSkuId(skuId);
+            vo.setHasStock(count == null ? false : count > 0);
+            return vo;
+        }).collect(Collectors.toList());
+        return collect;
+    }
 
 }
