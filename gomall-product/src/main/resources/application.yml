@@ -17,8 +17,12 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+  # 时间格式
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  # 模板缓存
+  thymeleaf:
+    cache: false
 
 # mybatis
 mybatis-plus:
@@ -31,6 +35,6 @@ mybatis-plus:
 # 日志
 logging:
   level:
-    cn.jinterest: debug
+    cn.jinterest.product: debug
 
 

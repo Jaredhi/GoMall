@@ -1,5 +1,6 @@
 package cn.jinterest.product.service;
 
+import cn.jinterest.product.vo.Catelog2Vo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.product.entity.CategoryEntity;
@@ -38,6 +39,22 @@ public interface CategoryService extends IService<CategoryEntity> {
      */
     String findCatelogPathName(Long id);
 
+    /**
+     * 级联更新
+     * @param category
+     */
     void updateCascade(CategoryEntity category);
+
+    /**
+     * 查询所有一级分类
+     * @return
+     */
+    List<CategoryEntity> getLeve1Categorys();
+
+    /**
+     * 查询前台需要的分类信息
+     * @return
+     */
+    Map<String, List<Catelog2Vo>> getCatalogJson();
 }
 

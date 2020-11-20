@@ -10,7 +10,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients
 @SpringBootApplication
-@MapperScan("cn.jinterest.product.dao")
 public class GomallProductApplication {
 
     public static void main(String[] args) {

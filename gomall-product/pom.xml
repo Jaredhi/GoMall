@@ -45,12 +45,25 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--hutool工具包-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>4.6.8</version>
             <scope>compile</scope>
         </dependency>
+        <!--  页面类似热加载的工具 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- 模板引擎-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

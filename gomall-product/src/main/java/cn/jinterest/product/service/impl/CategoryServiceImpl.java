@@ -1,8 +1,10 @@
 package cn.jinterest.product.service.impl;
 
 import cn.jinterest.product.service.CategoryBrandRelationService;
+import cn.jinterest.product.vo.Catelog2Vo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -112,6 +114,86 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         // 更新关联表
         categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
     }
+
+    /**
+     * 查询所有一级分类
+     * <p>
+     * 1、每一个需要缓存的数据我们都要来指定放到哪个名字的缓存；【按照业务类型来划分取名】
+     * 2、@Cacheable({"category"})
+     * 当前方法的结果需要缓存 如果缓存中有，方法不调用；
+     * 如果缓存中没有，会调用该方法，最后将方法的结果放入缓存
+     * 3、默认行为
+     * 1)、默认缓存不过期
+     * 4、自定义
+     * 1)、指定缓存生成指定的key
+     * 2)、指定缓存的过期时间  配置文件修改ttl
+     * 3)、将缓存的value保存为json格式
+     *
+     * @return
+     */
+    //@Cacheable(value = {"category"}, key = "#root.method.name", sync = true)
+    @Override
+    public List<CategoryEntity> getLeve1Categorys() {
+        System.out.println("CategoryServiceImpl.getLeve1Categorys (获取一级分类)调用了");
+        return baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid", 0));
+    }
+    /**
+     * 根据分类的parent_cid获取分类数据
+     */
+    private List<CategoryEntity> getParentCid(List<CategoryEntity> categoryEntityList, Long parentCid) {
+        // return baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid", v.getCatId()));
+        // 优化 不重复查数据库，通过传进来的数据进行过滤
+        return categoryEntityList.stream().filter(item -> item.getParentCid() == parentCid).collect(Collectors.toList());
+    }
+
+    /**
+     * 查询前台需要显示的分类数据 - 使用spring cache框架缓存
+     */
+    //@Cacheable(value = {"category"}, key = "#root.methodName", sync = true)
+    @Override
+    public Map<String, List<Catelog2Vo>> getCatalogJson() {
+
+        System.out.println("查询了数据库。。。。");
+        List<CategoryEntity> categoryEntityList = baseMapper.selectList(null);
+
+        // 1、查询所有一级分类
+        List<CategoryEntity> leve1Categorys = getParentCid(categoryEntityList, 0L);
+
+        // 2、封装需要的数据  Collectors.toMap(key,value)
+        Map<String, List<Catelog2Vo>> map = leve1Categorys.stream().collect(Collectors.toMap(k -> k.getCatId().toString(), v -> {
+
+            // 根据每个一级分类，查询到他的二级分类
+            List<CategoryEntity> category2EntityList = getParentCid(categoryEntityList, v.getCatId());
+
+            // 抽取出前台需要的的二级分类vo
+            List<Catelog2Vo> l2VoList = null;
+
+            if (category2EntityList != null) {
+
+                l2VoList = category2EntityList.stream().map(l2 -> {
+                    // 当前一级分类的2级分类vo
+                    Catelog2Vo l2Vo = new Catelog2Vo(v.getCatId().toString(), null, l2.getCatId().toString(), l2.getName());
+
+                    // 封装当前二级分类vo的三级分类vo
+                    List<CategoryEntity> l3EntityList = getParentCid(categoryEntityList, l2.getCatId());
+                    List<Catelog2Vo.Catelog3Vo> l3VoList = null;
+                    if (l3EntityList != null) {
+                        l3VoList = l3EntityList.stream().map(l3 -> {
+                            Catelog2Vo.Catelog3Vo l3Vo = new Catelog2Vo.Catelog3Vo(l2.getCatId().toString(), l3.getCatId().toString(), l3.getName());
+                            return l3Vo;
+                        }).collect(Collectors.toList());
+                    }
+                    // 给二级分类vo设置封装好的三级分类vo
+                    l2Vo.setCatalog3List(l3VoList);
+                    return l2Vo;
+                }).collect(Collectors.toList());
+            }
+            return l2VoList;
+        }));
+
+        return map;
+    }
+
 
     /**
      * 递归查询分类路径
