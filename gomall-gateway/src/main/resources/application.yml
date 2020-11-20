@@ -21,7 +21,7 @@ spring:
         - id: product_route
           uri: lb://gomall-product
           predicates:
-            - Path=/api/product/**
+            - Path=/api/product/**,/hello
           filters:
             - RewritePath=/api/(?<segment>/?.*),/$\{segment}
 
@@ -52,4 +52,8 @@ spring:
             - Path=/api/**
           filters:
             - RewritePath=/api/(?<segment>/?.*), /renren-fast/$\{segment}
-
+        # 域名服务接口
+        - id: gomall_host_route
+          uri: lb://gomall-product
+          predicates:
+            - Host=gomall.com,item.gomall.com
