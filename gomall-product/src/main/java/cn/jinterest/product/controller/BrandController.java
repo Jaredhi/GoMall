@@ -1,6 +1,7 @@
 package cn.jinterest.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import cn.jinterest.common.valid.AddGroup;
@@ -55,7 +56,16 @@ public class BrandController {
 
         return R.ok().put("brand", brand);
     }
+    /**
+     * 信息
+     */
+    @RequestMapping("/infos")
+    public R brandsInfo(@RequestParam("brandIds") List<Long> brandIds){
 
+        List<BrandEntity> brands = brandService.getBrandByIds(brandIds);
+
+        return R.ok().put("brands", brands);
+    }
     /**
      * 保存
      */

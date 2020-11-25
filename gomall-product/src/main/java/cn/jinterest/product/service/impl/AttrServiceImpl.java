@@ -13,6 +13,8 @@ import cn.jinterest.product.vo.AttrRespVo;
 import cn.jinterest.product.vo.AttrVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -137,7 +139,12 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
         return pageUtils;
     }
-
+    /**
+     * 查询详细信息
+     * @param attrId
+     * @return
+     */
+    @Cacheable(value = "attr", key = "'attrinfo:'+#root.args[0]")
     @Override
     public AttrRespVo getAttrDetail(Long attrId) {
         AttrRespVo attrRespVo = new AttrRespVo();
@@ -171,7 +178,9 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     /**
      * 保存详细信息
      * @param attr
+     * 更新操作 使用失效模式 删除缓存，避免读取老数据
      */
+    @CacheEvict(value = {"attr"}, allEntries = true)
     @Transactional
     @Override
     public void updateAttrDetail(AttrVo attr) {

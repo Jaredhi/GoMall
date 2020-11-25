@@ -42,4 +42,5 @@ public class ElasticSaveController {
             return R.error(BizCodeEnume.PRODUCT_UP_TO_ES_EXCETION.getCode(), BizCodeEnume.PRODUCT_UP_TO_ES_EXCETION.getMsg());
         }
     }
+    //TODO : 下架、删除商品的时候把es中的数据也删除
 }

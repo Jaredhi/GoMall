@@ -57,3 +57,8 @@ spring:
           uri: lb://gomall-product
           predicates:
             - Host=gomall.com,item.gomall.com
+
+        - id: gomall_search_route
+          uri: lb://gomall-search
+          predicates:
+            - Host=search.gomall.com
