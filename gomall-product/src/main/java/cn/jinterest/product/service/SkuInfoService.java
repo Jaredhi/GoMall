@@ -1,11 +1,13 @@
 package cn.jinterest.product.service;
 
+import cn.jinterest.product.vo.SkuItemVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.product.entity.SkuInfoEntity;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * sku信息
@@ -34,5 +36,11 @@ public interface SkuInfoService extends IService<SkuInfoEntity> {
      * @return
      */
     List<SkuInfoEntity> getSkusBySpuId(Long spuId);
+    /**
+     * 前台查询商品详情页信息
+     * @param skuId
+     * @return
+     */
+    SkuItemVo item(Long skuId) throws ExecutionException, InterruptedException;
 }
 

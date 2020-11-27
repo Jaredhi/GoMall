@@ -14,8 +14,9 @@
     <header>
         <div class="min">
             <ul class="header_ul_left">
-                <li class="glyphicon glyphicon-home" style="width: 91px"><a href="http://gomall.com" class="aa">首页</a></li>
-                <li class="glyphicon glyphicon-map-marker"><a href="javascript:;">北京</a>
+                <li class="glyphicon glyphicon-home" style="width: 91px"><a href="http://gomall.com" class="aa">首页</a>
+                </li>
+                <li class="glyphicon glyphicon-map-marker"><a href="javascript:;">广东</a>
                     <ol id="beijing">
                         <li style="background: red;"><a href="javascript:;" style="color: white;">北京</a></li>
                         <li><a href="javascript:;">上海</a></li>
@@ -57,7 +58,7 @@
             </ul>
             <ul class="header_ul_right">
                 <li style="border: 0;" th:if="${session.loginUser == null}">
-                    <a href="http://auth.gomall.com/login.html" class="aa" >你好，请登录</a>
+                    <a href="http://auth.gomall.com/login.html" class="aa">你好，请登录</a>
                 </li>
                 <li style="border: 0;" th:if="${session.loginUser != null}">
                     <a href="">
@@ -78,7 +79,8 @@
                 <div class="nav_top_two"><input type="text"/>
                     <button>搜索</button>
                 </div>
-                <div class="nav_top_three"><a href="../JD_Shop/One_JDshop.html">我的购物车</a><span class="glyphicon glyphicon-shopping-cart"></span>
+                <div class="nav_top_three"><a href="../JD_Shop/One_JDshop.html">我的购物车</a><span
+                        class="glyphicon glyphicon-shopping-cart"></span>
                     <div class="nav_top_three_1">
                         <img src="/static/item/img/44.png"/>购物车还没有商品，赶紧选购吧！
                     </div>
@@ -111,7 +113,7 @@
 
                 <div class="imgbox">
                     <div class="probox">
-                        <img class="img1" alt=""  th:src="${item.info.skuDefaultImg}">
+                        <img class="img1" alt="" th:src="${item.info.skuDefaultImg}">
                         <div class="hoverbox"></div>
                     </div>
                     <div class="showbox">
@@ -123,7 +125,8 @@
 
                     <div class="box-lh-one">
                         <ul>
-                            <li th:each="image : ${item.images}" th:if="${!#strings.isEmpty(image.imgUrl)}"><img th:src="${image.imgUrl}"/></li>
+                            <li th:each="image : ${item.images}" th:if="${!#strings.isEmpty(image.imgUrl)}"><img
+                                    th:src="${image.imgUrl}"/></li>
 
                         </ul>
                     </div>
@@ -278,7 +281,7 @@
                     <ul class="box-ul">
                         <li></li>
                         <li>
-                            由<span>谷粒商城</span> 发货，并提供售后服务
+                            由<span>GO商城</span> 发货，并提供售后服务
                         </li>
                     </ul>
                 </div>
@@ -296,10 +299,10 @@
                 <div class="box-attr-3">
                     <div class="box-attr clear" th:each="saleAttr : ${item.saleAttrs}">
                         <dl>
-                            <dt >选择[[${saleAttr.attrName}]]</dt>
+                            <dt>选择[[${saleAttr.attrName}]]</dt>
                             <dd th:each="vals : ${saleAttr.attrValues}">
                                 <a
-                                   th:attr="skus=${vals.skuIds},class=${#lists.contains(#strings.listSplit(vals.skuIds, ','), item.info.skuId.toString()) ? 'sku_attr_value checked' : 'sku_attr_value'}">
+                                        th:attr="skus=${vals.skuIds},class=${#lists.contains(#strings.listSplit(vals.skuIds, ','), item.info.skuId.toString()) ? 'sku_attr_value checked' : 'sku_attr_value'}">
                                     [[${vals.attrValue}]]
                                 </a>
                             </dd>
@@ -331,15 +334,18 @@
                         </form>
                     </div>
 
-                    <div id="addToCart" th:if="${item.secKillInfoVo == null || (#dates.createNow().getTime() < item.secKillInfoVo.startTime || #dates.createNow().getTime() > item.secKillInfoVo.endTime)}"
+                    <div id="addToCart"
+                         th:if="${item.secKillInfoVo == null || (#dates.createNow().getTime() < item.secKillInfoVo.startTime || #dates.createNow().getTime() > item.secKillInfoVo.endTime)}"
                          th:attr="skuId=${item.info.skuId}" style="cursor:pointer;" class="box-btns-two">
                         <a href="#">
                             加入购物车
                         </a>
                     </div>
 
-                    <div id="secKillA" th:if="${item.secKillInfoVo != null && (#dates.createNow().getTime() >= item.secKillInfoVo.startTime && #dates.createNow().getTime() <= item.secKillInfoVo.endTime)}"
-                         th:attr="skuId=${item.info.skuId},sessionId=${item.secKillInfoVo.promotionSessionId},code=${item.secKillInfoVo.randomCode}" style="cursor:pointer;" class="box-btns-two">
+                    <div id="secKillA"
+                         th:if="${item.secKillInfoVo != null && (#dates.createNow().getTime() >= item.secKillInfoVo.startTime && #dates.createNow().getTime() <= item.secKillInfoVo.endTime)}"
+                         th:attr="skuId=${item.info.skuId},sessionId=${item.secKillInfoVo.promotionSessionId},code=${item.secKillInfoVo.randomCode}"
+                         style="cursor:pointer;" class="box-btns-two">
                         <a href="#">
                             立即抢购
                         </a>
@@ -373,21 +379,27 @@
                     <li>
                         <a href="##"><img src="/static/item/img/5a12873eN41754123.jpg"/></a>
                         <p>
-                            <a target="_blank" title="詹姆士（GEMRY） R19plus全网通4G 智能手机 双卡双待 6+128GB 鳄鱼纹雅致版（新品预约）" href="/item.html.bak/item.jd.com/20348283521.html">詹姆士（GEMRY） R19plus全网通4G 智能手机 双卡双待 6+128GB 鳄鱼纹雅致版（新品预约）</a>
+                            <a target="_blank" title="詹姆士（GEMRY） R19plus全网通4G 智能手机 双卡双待 6+128GB 鳄鱼纹雅致版（新品预约）"
+                               href="/item.html.bak/item.jd.com/20348283521.html">詹姆士（GEMRY） R19plus全网通4G 智能手机 双卡双待
+                                6+128GB 鳄鱼纹雅致版（新品预约）</a>
                         </p>
                         <p><strong class="J-p-20348283521">￥13999.00</strong></p>
                     </li>
                     <li>
                         <a href="##"><img src="/static/item/img/59ec0131Nf239df75.jpg"/></a>
                         <p>
-                            <a target="_blank" title="斐纳（TOMEFON） 德国家用无线无绳手持立式充电吸尘器 静音大吸力吸尘器TF-X60" href="/item.html.bak/item.jd.com/16683419775.html">斐纳（TOMEFON） 德国家用无线无绳手持立式充电吸尘器 静音大吸力吸尘器TF-X60</a>
+                            <a target="_blank" title="斐纳（TOMEFON） 德国家用无线无绳手持立式充电吸尘器 静音大吸力吸尘器TF-X60"
+                               href="/item.html.bak/item.jd.com/16683419775.html">斐纳（TOMEFON） 德国家用无线无绳手持立式充电吸尘器
+                                静音大吸力吸尘器TF-X60</a>
                         </p>
                         <p><strong class="J-p-16683419775">￥1599.00</strong></p>
                     </li>
                     <li>
                         <a href="##"><img src="/static/item/img/59015444N27317512.jpg"/></a>
                         <p>
-                            <a target="_blank" title="斐纳（TOMEFON） 扫地机器人德国智能导航规划全自动超薄扫地机器人吸尘器TF-D60 香槟金" href="/item.html.bak/item.jd.com/12187770381.html">斐纳（TOMEFON） 扫地机器人德国智能导航规划全自动超薄扫地机器人吸尘器TF-D60 香槟金</a>
+                            <a target="_blank" title="斐纳（TOMEFON） 扫地机器人德国智能导航规划全自动超薄扫地机器人吸尘器TF-D60 香槟金"
+                               href="/item.html.bak/item.jd.com/12187770381.html">斐纳（TOMEFON）
+                                扫地机器人德国智能导航规划全自动超薄扫地机器人吸尘器TF-D60 香槟金</a>
                         </p>
                         <p><strong class="J-p-12187770381">￥2599.00</strong></p>
                     </li>
@@ -402,13 +414,17 @@
                     <li>
                         <a href="##"><img src="/static/item/img/59e55e01N369f98f2.jpg"/></a>
                         <p>
-                            <a target="_blank" title="华为（HUAWEI） 华为 Mate10 4G手机  双卡双待 亮黑色 全网通(6GB RAM+128GB ROM)" href="/item.html.bak/item.jd.com/17931625443.html">华为（HUAWEI） 华为 Mate10 4G手机 双卡双待 亮黑色 全网通(6GB RAM+128GB ROM)</a>
+                            <a target="_blank" title="华为（HUAWEI） 华为 Mate10 4G手机  双卡双待 亮黑色 全网通(6GB RAM+128GB ROM)"
+                               href="/item.html.bak/item.jd.com/17931625443.html">华为（HUAWEI） 华为 Mate10 4G手机 双卡双待 亮黑色
+                                全网通(6GB RAM+128GB ROM)</a>
                         <p><strong class="J-p-17931625443">￥4766.00</strong></p>
                     </li>
                     <li>
                         <a href="##"><img src="/static/item/img/584fcc3eNdb0ab94c.jpg"/></a>
                         <p>
-                            <a target="_blank" title="华为 Mate 9 Pro 6GB+128GB版 琥珀金 移动联通电信4G手机 双卡双待" href="/item.html.bak/item.jd.com/3749093.html">华为 Mate 9 Pro 6GB+128GB版 琥珀金 移动联通电信4G手机 双卡双待</a>
+                            <a target="_blank" title="华为 Mate 9 Pro 6GB+128GB版 琥珀金 移动联通电信4G手机 双卡双待"
+                               href="/item.html.bak/item.jd.com/3749093.html">华为 Mate 9 Pro 6GB+128GB版 琥珀金 移动联通电信4G手机
+                                双卡双待</a>
                         </p>
                         <p><strong class="J-p-3749093">￥4899.00</strong></p>
                     </li>
@@ -416,14 +432,18 @@
                         <!--shopjieshao-->
                         <a href="##"><img src="/static/item/img/59eb0df9Nd66d7585.jpg"/></a>
                         <p>
-                            <a target="_blank" title="华为（HUAWEI） 华为 Mate10 手机 亮黑色 全网通(4+64G)标准版" href="/item.html.bak/item.jd.com/12306211773.html">华为（HUAWEI） 华为 Mate10 手机 亮黑色 全网通(4+64G)标准版</a>
+                            <a target="_blank" title="华为（HUAWEI） 华为 Mate10 手机 亮黑色 全网通(4+64G)标准版"
+                               href="/item.html.bak/item.jd.com/12306211773.html">华为（HUAWEI） 华为 Mate10 手机 亮黑色
+                                全网通(4+64G)标准版</a>
                         </p>
                         <p><strong class="J-p-12306211773">￥4088.00</strong></p>
                     </li>
                     <li>
                         <a href="##"><img src="/static/item/img/5a002ba3N126c2f73.jpg"/></a>
                         <p>
-                            <a target="_blank" title="斐纳（TOMEFON） 扫地机器人德国智能导航规划全自动超薄扫地机器人吸尘器TF-D60 香槟金" href="/item.html.bak/item.jd.com/12187770381.html">斐纳（TOMEFON） 扫地机器人德国智能导航规划全自动超薄扫地机器人吸尘器TF-D60 香槟金</a>
+                            <a target="_blank" title="斐纳（TOMEFON） 扫地机器人德国智能导航规划全自动超薄扫地机器人吸尘器TF-D60 香槟金"
+                               href="/item.html.bak/item.jd.com/12187770381.html">斐纳（TOMEFON）
+                                扫地机器人德国智能导航规划全自动超薄扫地机器人吸尘器TF-D60 香槟金</a>
                         </p>
                         <p><strong class="J-p-12187770381">￥2599.00</strong></p>
                     </li>
@@ -475,72 +495,74 @@
                 <ul class="xuanxiangka">
                     <li class="jieshoa actives" id="li1">
                         <div class="shanpinsssss">
-                            <p>
-                                <a href="#">品牌:华为（HUAWEI）</a>
-                            </p>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <a href="##">商品名称：华为Mate 10</a>
-                                    </td>
-                                    <td>
-                                        <a href="##">商品毛重：0.58kg</a>
-                                    </td>
-                                    <td>
-                                        <a href="##">商品编号：5544038</a>
-                                    </td>
-                                    <td>
-                                        <a href="##">商品产地：中国大陆</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a href="##">系统：安卓（Android）</a>
-                                    </td>
-                                    <td>
-                                        <a href="##">前置摄像头像素：800万-1599万</a>
-                                    </td>
-                                    <td>
-                                        <a href="##">后置摄像头像素：2000万及以上，1200万-1999万</a>
-                                    </td>
-                                    <td>
-                                        <a href="##">机身内存：128GB</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4">
-                                        <a href="##">全面屏，双卡双待，指纹识别，Type-C，VoLTE，2K屏，拍照神器，支持NFC，商务手机，安全手机，分辨率10</a>
-                                    </td>
-                                </tr>
-                            </table>
-                            <img class="xiaoguo" th:src="${despImg}" th:each="despImg : ${#strings.listSplit(item.desp.decript,',')}"/>
+                            <!--                            <p>-->
+                            <!--                                <a href="#">品牌:华为（HUAWEI）</a>-->
+                            <!--                            </p>-->
+                            <!--                            <table>-->
+                            <!--                                <tr>-->
+                            <!--                                    <td>-->
+                            <!--                                        <a href="##">商品名称：华为Mate 10</a>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td>-->
+                            <!--                                        <a href="##">商品毛重：0.58kg</a>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td>-->
+                            <!--                                        <a href="##">商品编号：5544038</a>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td>-->
+                            <!--                                        <a href="##">商品产地：中国大陆</a>-->
+                            <!--                                    </td>-->
+                            <!--                                </tr>-->
+                            <!--                                <tr>-->
+                            <!--                                    <td>-->
+                            <!--                                        <a href="##">系统：安卓（Android）</a>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td>-->
+                            <!--                                        <a href="##">前置摄像头像素：800万-1599万</a>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td>-->
+                            <!--                                        <a href="##">后置摄像头像素：2000万及以上，1200万-1999万</a>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td>-->
+                            <!--                                        <a href="##">机身内存：128GB</a>-->
+                            <!--                                    </td>-->
+                            <!--                                </tr>-->
+                            <!--                                <tr>-->
+                            <!--                                    <td colspan="4">-->
+                            <!--                                        <a href="##">全面屏，双卡双待，指纹识别，Type-C，VoLTE，2K屏，拍照神器，支持NFC，商务手机，安全手机，分辨率10</a>-->
+                            <!--                                    </td>-->
+                            <!--                                </tr>-->
+                            <!--                            </table>-->
+
+                            <img class="xiaoguo" th:src="${despImg}"
+                                 th:each="despImg : ${#strings.listSplit(item.desp.decript,',')}"/>
                             <div class="guiGebox guiGebox1">
                                 <div class="guiGe" th:each="guige : ${item.attrGroups}">
                                     <h3 th:text="${guige.groupName}">主体</h3>
-                                    <dl>
-                                        <dt>品牌</dt>
-                                        <dd>华为(HUAWEI)</dd>
-                                        <dt>型号</dt>
-                                        <dd class="Ptable-tips">
-                                            <a href="#"><i>？</i></a>
-                                        </dd>
-                                        <dd>ALP-AL00</dd>
-                                        <dt>入网型号</dt>
-                                        <dd class="Ptable-tips">
-                                            <a href="#"><i>？</i></a>
-                                        </dd>
-                                        <dd>ALP-AL00</dd>
-                                        <dt>上市年份</dt>
-                                        <dd>2017年</dd>
-                                        <dt>上市时间</dt>
-                                        <dd>10月</dd>
-                                    </dl>
+                                    <!--                                    <dl>-->
+                                    <!--                                        <dt>品牌</dt>-->
+                                    <!--                                        <dd>华为(HUAWEI)</dd>-->
+                                    <!--                                        <dt>型号</dt>-->
+                                    <!--                                        <dd class="Ptable-tips">-->
+                                    <!--                                            <a href="#"><i>？</i></a>-->
+                                    <!--                                        </dd>-->
+                                    <!--                                        <dd>ALP-AL00</dd>-->
+                                    <!--                                        <dt>入网型号</dt>-->
+                                    <!--                                        <dd class="Ptable-tips">-->
+                                    <!--                                            <a href="#"><i>？</i></a>-->
+                                    <!--                                        </dd>-->
+                                    <!--                                        <dd>ALP-AL00</dd>-->
+                                    <!--                                        <dt>上市年份</dt>-->
+                                    <!--                                        <dd>2017年</dd>-->
+                                    <!--                                        <dt>上市时间</dt>-->
+                                    <!--                                        <dd>10月</dd>-->
+                                    <!--                                    </dl>-->
                                 </div>
 
-                                <div class="package-list">
-                                    <h3>包装清单</h3>
-                                    <p>手机（含内置电池） X 1、5A大电流华为SuperCharge充电器X 1、5A USB数据线 X 1、半入耳式线控耳机 X 1、快速指南X 1、三包凭证 X 1、取卡针 X 1、保护壳 X 1</p>
-                                </div>
+                                <!--                                <div class="package-list">-->
+                                <!--                                    <h3>包装清单</h3>-->
+                                <!--                                    <p>手机（含内置电池） X 1、5A大电流华为SuperCharge充电器X 1、5A USB数据线 X 1、半入耳式线控耳机 X 1、快速指南X 1、三包凭证 X 1、取卡针 X 1、保护壳 X 1</p>-->
+                                <!--                                </div>-->
                             </div>
                         </div>
                     </li>
@@ -557,10 +579,10 @@
                                 </dl>
                             </div>
 
-                            <div class="package-list">
-                                <h3>包装清单</h3>
-                                <p>手机（含内置电池） X 1、5A大电流华为SuperCharge充电器X 1、5A USB数据线 X 1、半入耳式线控耳机 X 1、快速指南X 1、三包凭证 X 1、取卡针 X 1、保护壳 X 1</p>
-                            </div>
+                            <!--                            <div class="package-list">-->
+                            <!--                                <h3>包装清单</h3>-->
+                            <!--                                <p>手机（含内置电池） X 1、5A大电流华为SuperCharge充电器X 1、5A USB数据线 X 1、半入耳式线控耳机 X 1、快速指南X 1、三包凭证 X 1、取卡针 X 1、保护壳 X 1</p>-->
+                            <!--                            </div>-->
                         </div>
                     </li>
                     <!--包装-->
@@ -589,7 +611,6 @@
         </div>
     </div>
 </div>
-
 
 
 <div class="Fixedbian">
@@ -650,7 +671,6 @@
 </script>
 
 
-
 <!--  自写js -->
 <script>
     $(".sku_attr_value").click(function () {
@@ -675,7 +695,7 @@
         // 3、取出交集
 
         var filterEle = skus[0];
-        for (var i=1; i<skus.length; i++){
+        for (var i = 1; i < skus.length; i++) {
             filterEle = $(filterEle).filter(skus[i])
         }
         console.log(filterEle)
@@ -685,8 +705,8 @@
 
     $(function () {
 
-        $(".sku_attr_value").parent().css({"border":"solid 1px #ccc"});
-        $("a[class='sku_attr_value checked']").parent().css({"border":"solid 1px red"});
+        $(".sku_attr_value").parent().css({"border": "solid 1px #ccc"});
+        $("a[class='sku_attr_value checked']").parent().css({"border": "solid 1px red"});
 
     });
 
@@ -698,7 +718,7 @@
         return false;
     });
 
-//    立即秒杀商品
+    //    立即秒杀商品
     $("#secKillA").click(function () {
 
         // 1、判断是否已登录 简单限流

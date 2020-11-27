@@ -4,6 +4,7 @@ import cn.jinterest.product.entity.AttrEntity;
 import cn.jinterest.product.service.AttrService;
 import cn.jinterest.product.service.CategoryService;
 import cn.jinterest.product.vo.AttrGroupWithAttrsVo;
+import cn.jinterest.product.vo.SpuItemAttrGroupVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,6 +109,23 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         return collect;
 
 
+    }
+
+    /**
+     * 根据spuid获取所有分组&关联属性
+     * @param catalogId
+     * @param spuId
+     * @return
+     */
+    @Override
+    public List<SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long catalogId, Long spuId) {
+
+        //1、查询分组信息
+        //2、查询所有属性
+        List<SpuItemAttrGroupVo> spuItemAttrGroupVos = this.baseMapper.getAttrGroupWithAttrsBySpuId(catalogId, spuId);
+
+
+        return spuItemAttrGroupVos;
     }
 
 }

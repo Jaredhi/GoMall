@@ -1,6 +1,7 @@
 package cn.jinterest.product.service;
 
 import cn.jinterest.product.vo.AttrGroupWithAttrsVo;
+import cn.jinterest.product.vo.SpuItemAttrGroupVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.product.entity.AttrGroupEntity;
@@ -33,5 +34,13 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
      * @return
      */
     List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCatelogId(Long catelogId);
+
+    /**
+     * 根据spuid获取所有分组&关联属性
+     * @param catalogId
+     * @param spuId
+     * @return
+     */
+    List<SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long catalogId, Long spuId);
 }
 
