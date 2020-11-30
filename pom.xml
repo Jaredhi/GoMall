@@ -20,6 +20,7 @@
         <module>gomall-gateway</module>
         <module>gomall-third-party</module>
         <module>gomall-search</module>
+        <module>gomall-auth-server</module>
     </modules>
 
     <properties>

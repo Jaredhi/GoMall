@@ -17,3 +17,8 @@ server:
 logging:
   level:
     com.bigdata.gulimall.product: debug
+
+# 模版CODE
+aliyun:
+  sms:
+    templateCode: SMS_197435071

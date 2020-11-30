@@ -1,6 +1,6 @@
 package cn.jinterest.ware.service.impl;
 
-import cn.jinterest.common.constant.WareConstant;
+import cn.jinterest.common.constant.wms.WareConstant;
 import cn.jinterest.ware.entity.PurchaseDetailEntity;
 import cn.jinterest.ware.service.PurchaseDetailService;
 import cn.jinterest.ware.service.WareSkuService;

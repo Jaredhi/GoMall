@@ -62,3 +62,8 @@ spring:
           uri: lb://gomall-search
           predicates:
             - Host=search.gomall.com
+
+        - id: gomall_auth_route
+          uri: lb://gomall-auth-server
+          predicates:
+            - Host=auth.gomall.com

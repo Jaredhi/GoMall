@@ -54,7 +54,7 @@
                 <a href="/static/#">
                     <img src="/static/index/img/img_05.png" style="border-radius: 50%;"/>
                     <!--<span class="glyphicon glyphicon-map-marker"></span>-->
-                    北京</a>
+                    广东</a>
                 <div class="header_head_p_cs">
                     <a href="/static/#" style="background: #C81623;color: #fff;">北京</a>
                     <a href="/static/#">上海</a>
@@ -74,7 +74,7 @@
                     <a href="/static/#">福建</a>
                     <a href="/static/#">湖北</a>
                     <a href="/static/#">湖南</a>
-                    <a href="/static/#">广东</a>
+                    <a href="/static/#">北京</a>
                     <a href="/static/#">广西</a>
                     <a href="/static/#">江西</a>
                     <a href="/static/#">四川</a>
@@ -103,6 +103,7 @@
                 <li>
                     <a th:if="${session.loginUser == null}" href="http://auth.gomall.com/reg.html" class="li_2">免费注册</a>
                 </li>
+                <li><a href="http://auth.gomall.com/removesession">退出</a></li>
                 <span>|</span>
                 <li>
                     <a href="http://member.gomall.com/memberOrder.html">我的订单</a>
@@ -246,13 +247,21 @@
                 <div class="header_main_right_user">
                     <div class="user_info">
                         <div class="user_info_tou">
-                            <a href="/static/#"><img class="" src="/static/index/img/touxiang.png"></a>
+                            <a href="http://gomall.com/"><img class="" src="/static/index/img/touxiang.png"></a>
                         </div>
                         <div class="user_info_show">
-                            <p class="">Hi, 欢迎来到!</p>
+
                             <p>
-                                <a href="/static/#" class="">登录</a>
-                                <a href="/static/#" class="">注册</a>
+                                <a href="http://auth.gomall.com/login.html" th:if="${session.loginUser == null}">登录</a>
+
+                                <a th:if="${session.loginUser == null}" href="http://auth.gomall.com/reg.html" class="li_2">注册</a>
+
+                                <a href="" th:if="${session.loginUser != null}">
+                                    [[${session.loginUser.nickname == null? '欢迎' : session.loginUser.nickname}]]
+                                    <p class="">Hi, 欢迎来到!</p>
+                                </a>
+
+
                             </p>
                         </div>
                     </div>
@@ -622,6 +631,8 @@
         location.href = "http://item.gomall.com/" + skuId + ".html"
 
     }
+
+
 
 </script>
 <script type="text/javascript" src="/static/index/js/text.js"></script>

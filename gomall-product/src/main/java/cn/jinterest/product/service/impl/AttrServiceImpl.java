@@ -1,6 +1,6 @@
 package cn.jinterest.product.service.impl;
 
-import cn.jinterest.common.constant.ProductConstant;
+import cn.jinterest.common.constant.pms.ProductConstant;
 import cn.jinterest.product.dao.AttrAttrgroupRelationDao;
 import cn.jinterest.product.dao.AttrGroupDao;
 import cn.jinterest.product.dao.CategoryDao;

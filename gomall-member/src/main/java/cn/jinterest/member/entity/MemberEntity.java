@@ -9,7 +9,7 @@ import lombok.Data;
 
 /**
  * 会员
- * 
+ *
  * @author JInterest
  * @email hwj2586@163.com
  * @date 2020-10-31 14:11:49
@@ -93,4 +93,18 @@ public class MemberEntity implements Serializable {
 	 */
 	private Date createTime;
 
+	/**
+	 * 会员社交登录识别标识
+	 */
+	private String socialUid;
+
+	/**
+	 * 访问令牌
+	 */
+	private String accessToken;
+
+	/**
+	 * 访问额令牌过期时间
+	 */
+	private Long expiresIn;
 }

@@ -1,6 +1,6 @@
 package cn.jinterest.product.service.impl;
 
-import cn.jinterest.common.constant.ProductConstant;
+import cn.jinterest.common.constant.pms.ProductConstant;
 import cn.jinterest.common.to.SkuHasStockVo;
 import cn.jinterest.common.to.SkuReductionTo;
 import cn.jinterest.common.to.SpuBoundTo;
