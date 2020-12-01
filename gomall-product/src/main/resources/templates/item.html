@@ -81,8 +81,9 @@
                 <div class="nav_top_two"><input type="text"/>
                     <button>搜索</button>
                 </div>
-                <div class="nav_top_three"><a href="../JD_Shop/One_JDshop.html">我的购物车</a><span
-                        class="glyphicon glyphicon-shopping-cart"></span>
+                <div class="nav_top_three">
+                    <a href="http://cart.gomall.com/cart.html">我的购物车</a>
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
                     <div class="nav_top_three_1">
                         <img src="/static/item/img/44.png"/>购物车还没有商品，赶紧选购吧！
                     </div>
@@ -718,6 +719,20 @@
         location.href = "http://cart.gomall.com/addToCart?skuId=" + skuId + "&num=" + num;
 
         return false;
+    });
+
+    $("#jia").click(function () {
+        var num = $("#numInput").val();
+        num = Number(num) + 1;
+        $("#numInput").val(num);
+    });
+
+    $("#jian").click(function () {
+        var num = $("#numInput").val();
+        if (num > 0) {
+            num = Number(num) - 1;
+            $("#numInput").val(num);
+        }
     });
 
     //    立即秒杀商品
