@@ -263,6 +263,7 @@ public class CartServiceImpl implements CartService {
         } else {
             String cartKey = CART_PREFIX + userInfoTo.getUserId();
             List<CartItem> cartItems = getCartItems(cartKey);
+            if (cartItems==null) return null;
             // 过滤选中的购物项 才需要返回
             List<CartItem> finalCartItems = cartItems.stream()
                     .filter(item -> item.getCheck())
