@@ -1,16 +1,19 @@
 package cn.jinterest.order.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.math.BigDecimal;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Data;
 
 /**
  * 订单
- * 
+ *
  * @author JInterest
  * @email hwj2586@163.com
  * @date 2020-10-31 14:14:31
@@ -190,4 +193,7 @@ public class OrderEntity implements Serializable {
 	 */
 	private Date modifyTime;
 
+
+	@TableField(exist = false)
+	private List<OrderItemEntity> orderItemEntityList;
 }

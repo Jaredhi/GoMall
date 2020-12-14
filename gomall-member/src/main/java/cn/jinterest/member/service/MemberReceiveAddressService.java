@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.member.entity.MemberReceiveAddressEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +17,11 @@ import java.util.Map;
 public interface MemberReceiveAddressService extends IService<MemberReceiveAddressEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    /**
+     * 根据会员id查询收货地址
+     * @param memberId
+     * @return
+     */
+    List<MemberReceiveAddressEntity> getAddresses(Long memberId);
 }
 

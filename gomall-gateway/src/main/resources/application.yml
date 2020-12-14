@@ -72,3 +72,29 @@ spring:
           uri: lb://gomall-cart
           predicates:
             - Host=cart.gomall.com
+
+        - id: gomall_order_route
+          uri: lb://gomall-order
+          predicates:
+            - Host=order.gomall.com
+
+        - id: gomall_member_route
+          uri: lb://gomall-member
+          predicates:
+            - Host=member.gomall.com
+
+        - id: gomall_seckill_route
+          uri: lb://gomall-seckill
+          predicates:
+            - Host=seckill.gomall.com
+
+
+
+## 前端项目请求路径 都带/api
+## 前端请求路径 http://localhost:88/api/captcha.jpg?uuid=1a0d6a79-28b4-43e0-8e59-0d1b4d5c0f83
+## 后端实际路径 http://localhost:88/renren-fast/captcha.jpg?uuid=1a0d6a79-28b4-43e0-8e59-0d1b4d5c0f83
+
+## 前端 http://localhost:88/api/product/category/list/tree
+## 后端商品服务 http://localhost:88/product/category/list/tree
+
+# http://localhost:8888/api/ware/wareinfo/list?

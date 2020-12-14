@@ -1,6 +1,8 @@
 package cn.jinterest.member.service.impl;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -26,4 +28,13 @@ public class MemberReceiveAddressServiceImpl extends ServiceImpl<MemberReceiveAd
         return new PageUtils(page);
     }
 
+    /**
+     * 根据会员id查询收货地址
+     * @param memberId
+     * @return
+     */
+    @Override
+    public List<MemberReceiveAddressEntity> getAddresses(Long memberId) {
+        return this.list(new QueryWrapper<MemberReceiveAddressEntity>().eq("member_id", memberId));
+    }
 }

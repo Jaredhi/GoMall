@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.jinterest.order.entity.OrderEntity;
 import cn.jinterest.order.service.OrderService;
@@ -29,6 +25,30 @@ import cn.jinterest.common.utils.R;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+
+
+    /**
+     * 查询当前登录用户的所有登录信息
+     */
+    @PostMapping("/listWithItem")
+    public R listWithItem(@RequestBody Map<String, Object> params){
+
+        PageUtils page = orderService.queryPageWhtiItem(params);
+
+        return R.ok().put("page", page);
+    }
+
+
+    /**
+     * 根据订单号查询订单状信息
+     * @param orderSn
+     * @return
+     */
+    @GetMapping("/status/{orderSn}")
+    public R getOrderByOrderSn(@PathVariable("orderSn") String orderSn) {
+        OrderEntity orderEntity = orderService.getOrderByOrderSn(orderSn);
+        return R.ok().data(orderEntity);
+    }
 
     /**
      * 列表

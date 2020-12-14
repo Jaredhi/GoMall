@@ -1,6 +1,9 @@
 package cn.jinterest.ware.service;
 
 import cn.jinterest.common.to.SkuHasStockVo;
+import cn.jinterest.common.to.mq.OrderTo;
+import cn.jinterest.common.to.mq.StockLockedTo;
+import cn.jinterest.ware.vo.WareSkuLockVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.ware.entity.WareSkuEntity;
@@ -32,6 +35,23 @@ public interface WareSkuService extends IService<WareSkuEntity> {
      * @return
      */
     List<SkuHasStockVo> getSkusHasStock(List<Long> skuIds);
+    /**
+     * 锁定某个订单的库存
+     * @param wareSkuLockVo
+     * @return
+     */
+    Boolean orderLocKStock(WareSkuLockVo wareSkuLockVo);
 
+    /**
+     * 构建解锁库存
+     * @param stockLockedTo
+     */
+    void buidUnlockStock(StockLockedTo stockLockedTo);
+
+    /**
+     * 订单关闭解锁库存
+     * @param orderTo
+     */
+    void buidUnlockStock(OrderTo orderTo);
 }
 

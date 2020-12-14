@@ -1,14 +1,11 @@
 package cn.jinterest.member.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.jinterest.member.entity.MemberReceiveAddressEntity;
 import cn.jinterest.member.service.MemberReceiveAddressService;
@@ -30,6 +27,17 @@ public class MemberReceiveAddressController {
     @Autowired
     private MemberReceiveAddressService memberReceiveAddressService;
 
+    /**
+     * 根据会员id查询收货地址 - 订单服务
+     * @param memberId
+     * @return
+     */
+    @GetMapping("/{memberId}/addresses")
+    public List<MemberReceiveAddressEntity> list(@PathVariable("memberId") Long memberId) {
+
+        return memberReceiveAddressService.getAddresses(memberId);
+
+    }
     /**
      * 列表
      */

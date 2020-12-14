@@ -15,7 +15,7 @@ package cn.jinterest.common.exception;
  *  13: 购物车
  *  14: 物流
  *  15: 用户
- *
+ *  21：库存
  *
  */
 public enum BizCodeEnume {
