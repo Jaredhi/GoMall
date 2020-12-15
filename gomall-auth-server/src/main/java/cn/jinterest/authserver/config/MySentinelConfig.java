@@ -1,5 +1,4 @@
-package cn.jinterest.gomallcart.config;
-
+package cn.jinterest.authserver.config;
 
 import cn.jinterest.common.exception.BizCodeEnume;
 import cn.jinterest.common.utils.R;
@@ -7,11 +6,13 @@ import com.alibaba.csp.sentinel.adapter.servlet.callback.UrlBlockHandler;
 import com.alibaba.csp.sentinel.adapter.servlet.callback.WebCallbackManager;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.fastjson.JSON;
+
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 
 @Configuration
 public class MySentinelConfig {

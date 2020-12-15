@@ -70,17 +70,17 @@
             <version>2.1.0.RELEASE</version>
         </dependency>
 
-<!--        &lt;!&ndash;        Seata场景启动器 - 解决分布式事务 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>-->
-<!--        </dependency>-->
+        <!--        &lt;!&ndash;        Seata场景启动器 - 解决分布式事务 &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba.cloud</groupId>-->
+        <!--            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>-->
+        <!--        </dependency>-->
 
-<!--        &lt;!&ndash;        Sentinel场景启动器 - 流量控制、熔断降级、系统负载保护等多个维度保护服务的稳定性 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
-<!--        </dependency>-->
+        <!--        Sentinel场景启动器 - 流量控制、熔断降级、系统负载保护等多个维度保护服务的稳定性 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
 
         <!--        为了使用Sentinel1.7.1版本的控制台 -->
         <!--        <dependency>
@@ -95,13 +95,17 @@
                     <artifactId>spring-cloud-starter-sleuth</artifactId>
                 </dependency>-->
 
-        <!--        引入sleuth链路追踪的可视化观察界面zipkin
-                    因为zipkin里引入了sleuth，所以不需要再单独引入sleuth-->
-        <!--        <dependency>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-starter-zipkin</artifactId>
-                </dependency>-->
-
+        <!-- 引入sleuth链路追踪的可视化观察界面zipkin 因为zipkin里引入了sleuth，所以不需要再单独引入sleuth-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+        <!--actuator 审计模块，可以实时统计Springboot健康状态，包括整个请求的调用信息等，Sentinel通过统计拿到的这些信息最终做整个数据的监控功能能。-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>2.1.3.RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>

@@ -1,5 +1,4 @@
-package cn.jinterest.gomallcart.config;
-
+package cn.jinterest.ware.config;
 
 import cn.jinterest.common.exception.BizCodeEnume;
 import cn.jinterest.common.utils.R;
@@ -12,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 
 @Configuration
 public class MySentinelConfig {
