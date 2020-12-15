@@ -44,6 +44,7 @@ mybatis-plus:
 # 日志
 logging:
   level:
-    cn.jinterest.product: debug
-
+    cn.jinterest.product: info
+    org.springframework.cloud.openfeign: debug
+    org.springframework.cloud.sleuth: debug
 

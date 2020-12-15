@@ -1,5 +1,6 @@
 package cn.jinterest.order.service;
 
+import cn.jinterest.common.to.mq.SecKillOrderTo;
 import cn.jinterest.order.vo.*;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
@@ -67,10 +68,11 @@ public interface OrderService extends IService<OrderEntity> {
      */
     String handlePayResult(PayAsyncVo payAsyncVo);
 
-//    /**
-//     * 创建秒杀商品订单
-//     * @param secKillOrderTo
-//     */
-//    void createSecKillOrder(SecKillOrderTo secKillOrderTo);
+
+    /**
+     * 创建秒杀商品订单
+     * @param secKillOrderTo
+     */
+    void createSecKillOrder(SecKillOrderTo secKillOrderTo);
 }
 

@@ -4,6 +4,7 @@ package cn.jinterest.order.service.impl;
 import cn.jinterest.common.exception.NoCartException;
 import cn.jinterest.common.exception.NoStockException;
 import cn.jinterest.common.to.mq.OrderTo;
+import cn.jinterest.common.to.mq.SecKillOrderTo;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.common.utils.Query;
 import cn.jinterest.common.utils.R;
@@ -505,33 +506,35 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         return "success";
     }
 
-//    /**
-//     * 创建秒杀商品订单
-//     * TODO 解决：校验问题
-//     * @param secKillOrderTo
-//     */
-//    @Override
-//    public void createSecKillOrder(SecKillOrderTo secKillOrderTo) {
-//        // TODO 设置详细信息
-//
-//        // 保存订单信息
-//        OrderEntity orderEntity = new OrderEntity();
-//        orderEntity.setOrderSn(secKillOrderTo.getOrderSn());
-//        orderEntity.setMemberId(secKillOrderTo.getMemberId());
-//
-//        orderEntity.setStatus(OrderStatusEnum.CREATE_NEW.getCode());
-//        BigDecimal totalPrice = secKillOrderTo.getSeckillPrice().multiply(new BigDecimal(secKillOrderTo.getNum() + ""));
-//        orderEntity.setPayAmount(totalPrice);
-//
-//        this.save(orderEntity);
-//
-//        OrderItemEntity orderItemEntity = new OrderItemEntity();
-//        orderItemEntity.setOrderSn(secKillOrderTo.getOrderSn());
-//        orderItemEntity.setRealAmount(totalPrice);
-//        orderItemEntity.setSkuQuantity(secKillOrderTo.getNum());
-//
-//        orderItemService.save(orderItemEntity);
-//
-//
-//    }
+
+
+    /**
+     * 创建秒杀商品订单
+     * TODO 解决：校验问题
+     * @param secKillOrderTo
+     */
+    @Override
+    public void createSecKillOrder(SecKillOrderTo secKillOrderTo) {
+        // TODO 设置详细信息
+
+        // 保存订单信息
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderSn(secKillOrderTo.getOrderSn());
+        orderEntity.setMemberId(secKillOrderTo.getMemberId());
+
+        orderEntity.setStatus(OrderStatusEnum.CREATE_NEW.getCode());
+        BigDecimal totalPrice = secKillOrderTo.getSeckillPrice().multiply(new BigDecimal(secKillOrderTo.getNum() + ""));
+        orderEntity.setPayAmount(totalPrice);
+
+        this.save(orderEntity);
+
+        OrderItemEntity orderItemEntity = new OrderItemEntity();
+        orderItemEntity.setOrderSn(secKillOrderTo.getOrderSn());
+        orderItemEntity.setRealAmount(totalPrice);
+        orderItemEntity.setSkuQuantity(secKillOrderTo.getNum());
+
+        orderItemService.save(orderItemEntity);
+
+
+    }
 }
