@@ -2,10 +2,12 @@ package cn.jinterest.seckill.to;
 
 import cn.jinterest.seckill.vo.SkuInfoVo;
 import lombok.Data;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
 @Data
+@ToString
 public class SecKillSkuRedsTo {
 
     /**

@@ -99,6 +99,8 @@ public class SeckillServiceImpl implements SeckillService {
                 Boolean hasKey = stringRedisTemplate.hasKey(key);
 
                 if (!hasKey) {
+                    // 问题 如果已存在，不能在redis中继续添加 场次id_skuid 这个信息
+                    // TODO 判断是否是该场次的新秒杀商品添加进来
                     List<String> collect = session.getRelationSkus().stream().map(item -> item.getPromotionSessionId() + "_" + item.getSkuId().toString()).collect(Collectors.toList());
 
                     stringRedisTemplate.opsForList().leftPushAll(key, collect);
@@ -240,7 +242,7 @@ public class SeckillServiceImpl implements SeckillService {
 
         if (keys != null && keys.size() > 0) {
 
-            String regx = "\\d_" + skuId;
+            String regx = "\\d+_" + skuId;
 
             for (String key : keys) {
                 if (Pattern.matches(regx, key)) {
@@ -256,7 +258,6 @@ public class SeckillServiceImpl implements SeckillService {
                         // 不是秒杀时间，把随机码置空
                         secKillSkuRedsTo.setRandomCode(null);
                     }
-
                     return secKillSkuRedsTo;
                 }
             }

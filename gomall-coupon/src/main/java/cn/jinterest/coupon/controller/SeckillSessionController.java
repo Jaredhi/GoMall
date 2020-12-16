@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import cn.jinterest.coupon.service.SeckillSkuRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import cn.jinterest.coupon.entity.SeckillSessionEntity;
@@ -27,6 +29,8 @@ public class SeckillSessionController {
     @Autowired
     private SeckillSessionService seckillSessionService;
 
+    @Autowired
+    private SeckillSkuRelationService seckillSkuRelationService;
     /**
      * 获取最近三天秒杀的活动场次
      * @return
@@ -85,11 +89,13 @@ public class SeckillSessionController {
     /**
      * 删除
      */
+    @Transactional
     @RequestMapping("/delete")
     //@RequiresPermissions("coupon:seckillsession:delete")
     public R delete(@RequestBody Long[] ids){
 		seckillSessionService.removeByIds(Arrays.asList(ids));
-
+		//同时删除 SeckillSkuRelation
+        Boolean b = seckillSkuRelationService.delBySessionIds(ids);
         return R.ok();
     }
 

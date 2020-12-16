@@ -1,7 +1,9 @@
 package cn.jinterest.product.service.impl;
 
+import cn.jinterest.common.utils.R;
 import cn.jinterest.product.entity.SkuImagesEntity;
 import cn.jinterest.product.entity.SpuInfoDescEntity;
+import cn.jinterest.product.feign.SecKillFeignService;
 import cn.jinterest.product.service.*;
 import cn.jinterest.product.vo.SecKillInfoVo;
 import cn.jinterest.product.vo.SkuItemSaleAttrVo;
@@ -43,8 +45,8 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     @Autowired
     private SkuSaleAttrValueService skuSaleAttrValueService;
 
-//    @Autowired
-//    private SecKillFeignService secKillFeignService;
+    @Autowired
+    private SecKillFeignService secKillFeignService;
 
     @Autowired
     private ThreadPoolExecutor executor;
@@ -185,20 +187,19 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             skuItemVo.setImages(skuImagesEntities);
         }, executor);
 
-//        // 6、查询当前sku是否参与秒杀优惠
-//        CompletableFuture<Void> secKillFuture = CompletableFuture.runAsync(() -> {
-//            R skuSecKillInfo = secKillFeignService.getSkuSecKillInfo(skuId);
-//            if (skuSecKillInfo.getCode() == 0) {
-//                SecKillInfoVo skuSecKillInfoData = skuSecKillInfo.getData(new TypeReference<SecKillInfoVo>() {
-//                });
-//                skuItemVo.setSecKillInfoVo(skuSecKillInfoData);
-//            }
-//        }, executor);
+        // 6、查询当前sku是否参与秒杀优惠
+        CompletableFuture<Void> secKillFuture = CompletableFuture.runAsync(() -> {
+            R skuSecKillInfo = secKillFeignService.getSkuSecKillInfo(skuId);
+            if (skuSecKillInfo.getCode() == 0) {
+                SecKillInfoVo skuSecKillInfoData = skuSecKillInfo.getData(new TypeReference<SecKillInfoVo>() {
+                });
+                skuItemVo.setSecKillInfoVo(skuSecKillInfoData);
+            }
+        }, executor);
 
 
         // 等到所有任务都完成
-//        CompletableFuture.allOf(saleFuture, descFuture, baseAttrFuture, imageFuture, secKillFuture).get();
-        CompletableFuture.allOf(saleFuture, descFuture, baseAttrFuture, imageFuture).get();
+        CompletableFuture.allOf(saleFuture, descFuture, baseAttrFuture, imageFuture, secKillFuture).get();
 
         return skuItemVo;
     }

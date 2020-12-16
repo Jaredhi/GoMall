@@ -1,6 +1,9 @@
 package cn.jinterest.coupon.service.impl;
 
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -24,6 +27,11 @@ public class SeckillSkuRelationServiceImpl extends ServiceImpl<SeckillSkuRelatio
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public Boolean delBySessionIds(Long[] ids) {
+        return this.getBaseMapper().delByPromotionSessionIds(ids);
     }
 
 }
