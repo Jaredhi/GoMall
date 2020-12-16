@@ -112,3 +112,12 @@ spring:
 ## 后端商品服务 http://localhost:88/product/category/list/tree
 
 # http://localhost:8888/api/ware/wareinfo/list?
+
+# zipkin 配置
+  zipkin:
+    base-url: http://192.168.108.131:9411/
+    discovery-client-enabled: false
+    sender: web
+  sleuth:
+    sampler:
+      probability: 1

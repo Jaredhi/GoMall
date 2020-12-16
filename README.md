@@ -2,6 +2,8 @@
 
 该项目是一套电商项目，包括前台商城系统以及后台管理系统，基于 SpringCloud + SpringCloudAlibaba + MyBatis-Plus实现，采用 Docker 容器化部署。前台商城系统包括：用户登录、注册、商品搜索、商品详情、购物车、下订单流程、秒杀活动等模块。后台管理系统包括：系统管理、商品系统、优惠营销、库存系统、订单系统、用户系统、内容管理等七大模块。
 
+➜[后台管理前端代码](https://gitee.com/jinterest/go-mall-front)
+
 ## 组织结构
 
 ```
@@ -11,7 +13,7 @@ GoMall-Java
 ├── gomall-common -- 工具类及通用代码
 ├── gomall-coupon -- 优惠卷服务
 ├── gomall-gateway -- 统一配置网关
-├──gomall-member -- 会员服务
+├── gomall-member -- 会员服务
 ├── gomall-order -- 订单服务
 ├── gomall-product -- 商品服务
 ├── gomall-search -- 检索服务
