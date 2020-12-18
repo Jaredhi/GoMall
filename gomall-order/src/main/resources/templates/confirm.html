@@ -476,9 +476,11 @@
 
 			</div>
 
-			<div class="yfze">
+			<div class="yfze" th:each="addres : ${orderConfirmData.addressList}">
 				<p class="yfze_a"><span class="z">应付总额：</span><span class="hq">￥[[${#numbers.formatDecimal(orderConfirmData.payPrice,3,2)}]]</span></p>
-				<p class="yfze_b">寄送至： 北京 朝阳区 三环到四环之间 朝阳北路复兴国际大厦23层麦田房产 IT-中心研发二部 收货人：赵存权 188****5052</p>
+				<p class="yfze_b" th:attr="def=${addres.defaultStatus}, addrId=${addres.id}"
+				   th:text="${addres.name}+'  '+${addres.province}+'  '+ ${addres.city}+'  '+${addres.region} +'  '+ ${addres.detailAddress}+'  '+${addres.phone}">
+				</p>
 			</div>
 			<form action="http://order.gomall.com/submitOrder" method="post">
 
