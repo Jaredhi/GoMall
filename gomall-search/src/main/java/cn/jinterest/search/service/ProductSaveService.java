@@ -20,5 +20,13 @@ public interface ProductSaveService {
      * @throws IOException
      */
     Boolean productStatusUp(List<SkuEsModel> esModels) throws IOException;
+    /**
+     * 从es 删除索引
+     * @param
+     * @param skuIds
+     * @return true 有错误 false 无错误
+     * @throws IOException
+     */
+    Boolean productStatusDown(List<Long> skuIds);
 }
 

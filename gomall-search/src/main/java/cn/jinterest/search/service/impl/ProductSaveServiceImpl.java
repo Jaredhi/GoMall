@@ -9,6 +9,8 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
@@ -20,12 +22,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @Description 想es索引数据
- * @Author 鲁班爱喝旺仔
- * @Date 2020/4/10 15:29
- * @Version 1.0
- **/
 @Slf4j
 @Service
 public class ProductSaveServiceImpl implements ProductSaveService {
@@ -63,5 +59,30 @@ public class ProductSaveServiceImpl implements ProductSaveService {
 
         return hasFaile;
 
+    }
+
+    @Override
+    public Boolean productStatusDown(List<Long> skuIds) {
+
+        DeleteResponse delete = null;
+
+        DeleteRequest deleteRequest = new DeleteRequest(EsConstant.PRODUCT_INDEX,"_doc");
+        for (Long skuId:skuIds
+             ) {
+            deleteRequest.id(skuId.toString());
+
+            try {
+                delete = restHighLevelClient.delete(deleteRequest, GomallElasticSearchConfig.COMMON_OPTIONS);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (delete!= null && delete.status().getStatus()!=200){
+            log.info("ProductSaveServiceImpl.productStstusDown 下架失败：{} ，失败状态码：{}", skuIds,delete.status().getStatus());
+            return false;
+        }else {
+            return true;
+        }
     }
 }

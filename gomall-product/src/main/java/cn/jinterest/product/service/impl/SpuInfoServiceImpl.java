@@ -91,7 +91,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     public void saveSpuInfo(SpuSaveVo spuSaveVo) {
         //1、保存spu基本信息 pms_spu_info
         SpuInfoEntity infoEntity = new SpuInfoEntity();
-        BeanUtils.copyProperties(spuSaveVo,infoEntity);
+        BeanUtils.copyProperties(spuSaveVo, infoEntity);
         infoEntity.setCreateTime(new Date());
         infoEntity.setUpdateTime(new Date());
         this.saveBaseSpuInfo(infoEntity);
@@ -108,7 +108,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         //5、保存spu的积分信息；gomall_sms->sms_spu_bounds
         Bounds bounds = spuSaveVo.getBounds();
         SpuBoundTo spuBoundTo = new SpuBoundTo();
-        BeanUtils.copyProperties(bounds,spuBoundTo);
+        BeanUtils.copyProperties(bounds, spuBoundTo);
         spuBoundTo.setSpuId(threadLocal.get());
 
         R r = couponFeignService.saveSpuBounds(spuBoundTo);
@@ -122,10 +122,10 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         List<Skus> skus = spuSaveVo.getSkus();
 
         if (skus != null && skus.size() > 0) {
-            skus.forEach( item -> {
+            skus.forEach(item -> {
                 String defaultImg = "";
                 for (Images image : item.getImages()) {
-                    if(image.getDefaultImg() == 1){
+                    if (image.getDefaultImg() == 1) {
                         defaultImg = image.getImgUrl();
                     }
                 }
@@ -150,7 +150,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                     skuImagesEntity.setDefaultImg(img.getDefaultImg());
 
                     return skuImagesEntity;
-                }).filter( imagesEntity -> {
+                }).filter(imagesEntity -> {
                     //返回true就是需要，false就是剔除  过滤掉未勾选的图片
                     return !StringUtils.isEmpty(imagesEntity.getImgUrl());
                 }).collect(Collectors.toList());
@@ -170,11 +170,11 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
                 //6.4）、sku的优惠、满减等信息；gomall_sms->sms_sku_ladder\sms_sku_full_reduction\sms_member_price
                 SkuReductionTo skuReductionTo = new SkuReductionTo();
-                BeanUtils.copyProperties(item,skuReductionTo);
+                BeanUtils.copyProperties(item, skuReductionTo);
                 skuReductionTo.setSkuId(skuId);
-                if(skuReductionTo.getFullCount() >0 || skuReductionTo.getFullPrice().compareTo(new BigDecimal("0")) == 1){
+                if (skuReductionTo.getFullCount() > 0 || skuReductionTo.getFullPrice().compareTo(new BigDecimal("0")) == 1) {
                     R r1 = couponFeignService.saveSkuReduction(skuReductionTo);
-                    if(r1.getCode() != 0){
+                    if (r1.getCode() != 0) {
                         log.error("远程保存sku优惠信息失败");
                     }
                 }
@@ -182,6 +182,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         }
 
     }
+
     @Override
     public PageUtils queryPageByCondition(Map<String, Object> params) {
         QueryWrapper<SpuInfoEntity> wrapper = new QueryWrapper<>();
@@ -192,7 +193,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         String brandId = (String) params.get("brandId");
 
         if (!StringUtils.isEmpty(key)) {
-            wrapper.and( (w) -> {
+            wrapper.and((w) -> {
                 w.eq("id", key).or().like("spu_name", key);
             });
         }
@@ -207,7 +208,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         }
 
         IPage<SpuInfoEntity> page = this.page(
-                new Query<SpuInfoEntity>().getPage(params),wrapper
+                new Query<SpuInfoEntity>().getPage(params), wrapper
         );
 
         return new PageUtils(page);
@@ -215,6 +216,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     /**
      * 根据skuId查询spu信息
+     *
      * @param skuId
      * @return
      */
@@ -227,8 +229,24 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
         return spuInfoEntity;
     }
+
+    @Override
+    public void down(Long spuId) {
+        List<SkuInfoEntity> skusBySpuId = skuInfoService.getSkusBySpuId(spuId);
+        List<Long> skuIds = skusBySpuId.stream().map(item ->
+                item.getSkuId()).collect(Collectors.toList());
+
+        R r = searchFeignService.productStstusDown(skuIds);
+        if (r.getCode() == 0) {
+            this.baseMapper.updateSpuStatus(spuId, ProductConstant.SpuStatusEnum.DOWN_SPU.getCode());
+        } else { // 失败
+
+        }
+    }
+
     /**
      * 商品上架
+     *
      * @param spuId
      */
     @Override
@@ -307,7 +325,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         R r = searchFeignService.productStstusUp(collect);
 
         if (r.getCode() == 0) { // 远程gomall-search服务想es索引数据成功 修改商品spu上架状态
-            // TODO 修改当前spu的状态
+
             this.baseMapper.updateSpuStatus(spuId, ProductConstant.SpuStatusEnum.UP_SPU.getCode());
         } else { // 失败
             // TODO 重复调用 接口幂等性 重试机制
@@ -318,11 +336,11 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     }
 
 
-
-
     // TODO 代码优化
+
     /**
      * 1、保存商品spu基本信息  pms_spu_info
+     *
      * @param infoEntity
      */
     @Override
@@ -333,13 +351,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         threadLocal.set(infoEntity.getId());
 
 
-        log.debug("当前线程....{}---->{} ------- 保存商品spu基本信息",Thread.currentThread().getId(),Thread.currentThread().getName());
+        log.debug("当前线程....{}---->{} ------- 保存商品spu基本信息", Thread.currentThread().getId(), Thread.currentThread().getName());
     }
-
 
 
     /**
      * 2、保存Spu的描述图片 pms_spu_info_desc
+     *
      * @param spuSaveVo
      */
     private void saveSpuInfoDesc(SpuSaveVo spuSaveVo) {
@@ -347,29 +365,31 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         SpuInfoDescEntity descEntity = new SpuInfoDescEntity();
         // 获取当前线程中存储的商品id
         descEntity.setSpuId(threadLocal.get());
-        descEntity.setDecript(String.join(",",decript));
+        descEntity.setDecript(String.join(",", decript));
 
         spuInfoDescService.saveSpuInfoDesc(descEntity);
 
-        log.debug("当前线程....{}---->{} ------- 保存商品Spu的描述图片信息",Thread.currentThread().getId(),Thread.currentThread().getName());
+        log.debug("当前线程....{}---->{} ------- 保存商品Spu的描述图片信息", Thread.currentThread().getId(), Thread.currentThread().getName());
 
     }
 
     /**
      * 3、保存spu的图片集 pms_spu_images
+     *
      * @param spuSaveVo
      */
     private void saveSpuImages(SpuSaveVo spuSaveVo) {
 
         List<String> images = spuSaveVo.getImages();
-        spuImagesService.saveImages(threadLocal.get(),images);
+        spuImagesService.saveImages(threadLocal.get(), images);
 
-        log.debug("当前线程....{}---->{} ------- 保存商品spu的图片集信息",Thread.currentThread().getId(),Thread.currentThread().getName());
+        log.debug("当前线程....{}---->{} ------- 保存商品spu的图片集信息", Thread.currentThread().getId(), Thread.currentThread().getName());
 
     }
 
     /**
      * 4、保存spu的规格参数;pms_product_attr_value
+     *
      * @param spuSaveVo
      */
     private void saveProductAttrValue(SpuSaveVo spuSaveVo) {

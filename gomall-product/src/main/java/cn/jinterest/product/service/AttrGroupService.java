@@ -42,5 +42,12 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
      * @return
      */
     List<SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long catalogId, Long spuId);
+
+    /**
+     * 将对应的关系表删除
+     * @param asList
+     * @return
+     */
+    void deleteByIds(List<Long> asList);
 }
 

@@ -26,6 +26,7 @@ public enum BizCodeEnume {
     SMS_CODE_EXCEPTION(10004, "短信发送失败！"),
     TO_MANY_REQUEST(10003, "请求流量过大"),
     PRODUCT_UP_TO_ES_EXCETION(11000, "商品上架给es索引数据时异常"),
+    PRODUCT_DOWN_TO_ES_EXCETION(12000, "商品上架给es索引数据时异常"),
     USER_EXIST_EXCEPTION(15001, "用户已存在"),
     PHONE_EXIST_EXCEPTION(15002, "手机号已存在"),
     LOGINACCT_PASSSWORD_INVAILD_EXCEPTION(15003, "账号或密码错误"),

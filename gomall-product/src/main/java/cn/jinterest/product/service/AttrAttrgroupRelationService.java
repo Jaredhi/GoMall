@@ -1,6 +1,7 @@
 package cn.jinterest.product.service;
 
 import cn.jinterest.product.vo.AttrGroupRelationVo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.product.entity.AttrAttrgroupRelationEntity;
@@ -20,5 +21,7 @@ public interface AttrAttrgroupRelationService extends IService<AttrAttrgroupRela
     PageUtils queryPage(Map<String, Object> params);
 
     void saveBatch(List<AttrGroupRelationVo> vos);
+
+    void delByAttrGroupIds(List<Long> asList);
 }
 

@@ -47,4 +47,15 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
         this.saveBatch(collect);
     }
 
+    /**
+     * 根据属性分组id删除关联表
+     * @param asList
+     * @return
+     */
+    @Override
+    public void delByAttrGroupIds(List<Long> asList) {
+        this.getBaseMapper().deleteBatchRelationById(asList);
+    }
+
+
 }

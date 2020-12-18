@@ -48,6 +48,15 @@ public class SpuInfoController {
         return R.ok();
     }
     /**
+     * 商品下架
+     */
+    @PostMapping("/{spuId}/down")
+    //@RequiresPermissions("product:spuinfo:list")
+    public R spuDown(@PathVariable("spuId") Long spuId){
+        spuInfoService.down(spuId);
+        return R.ok();
+    }
+    /**
      * 条件查询列表。
      */
     @RequestMapping("/list")

@@ -6,6 +6,7 @@ import cn.jinterest.common.utils.R;
 import cn.jinterest.search.service.ProductSaveService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,31 +17,34 @@ import java.util.List;
 /**
  * @Auther: AJun
  * @version:1.0
- * @Date: 2020/11/19  17:09
+ * @Date: 2020/12/18  17:09
  * @Description:
  */
 @Slf4j
-@RequestMapping("/search/save")
+@RequestMapping("/search/delete")
 @RestController
-public class ElasticSaveController {
+public class ElasticDeleteController {
 
     @Autowired
     ProductSaveService productSaveService;
 
+
     @PostMapping("/product")
-    public R productStstusUp(@RequestBody List<SkuEsModel> esModels) {
+    R productStstusDown(@RequestBody List<Long> skuIds){
+
         Boolean flag = false;
         try {
-            flag = productSaveService.productStatusUp(esModels);
+            flag = productSaveService.productStatusDown(skuIds);
         } catch (Exception e) {
-            log.error("ElasticSaveController商品上架产生了错误：{}",e);
-            return R.error(BizCodeEnume.PRODUCT_UP_TO_ES_EXCETION.getCode(), BizCodeEnume.PRODUCT_UP_TO_ES_EXCETION.getMsg());
+            log.error("ElasticSaveController商品下架产生了错误：{}",e);
+            return R.error(BizCodeEnume.PRODUCT_DOWN_TO_ES_EXCETION.getCode(), BizCodeEnume.PRODUCT_DOWN_TO_ES_EXCETION.getMsg());
         }
         if (!flag) {
             return R.ok();
         } else {
-            return R.error(BizCodeEnume.PRODUCT_UP_TO_ES_EXCETION.getCode(), BizCodeEnume.PRODUCT_UP_TO_ES_EXCETION.getMsg());
+            return R.error(BizCodeEnume.PRODUCT_DOWN_TO_ES_EXCETION.getCode(), BizCodeEnume.PRODUCT_DOWN_TO_ES_EXCETION.getMsg());
         }
+
     }
 
 }

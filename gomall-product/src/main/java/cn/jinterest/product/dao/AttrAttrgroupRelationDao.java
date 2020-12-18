@@ -18,4 +18,6 @@ import java.util.List;
 public interface AttrAttrgroupRelationDao extends BaseMapper<AttrAttrgroupRelationEntity> {
 
     void deleteBatchRelation(@Param("relationEntityList")List<AttrAttrgroupRelationEntity> relationEntityList);
+
+    void deleteBatchRelationById(@Param("asList") List<Long> asList);
 }

@@ -1,10 +1,14 @@
 package cn.jinterest.product.service.impl;
 
+import cn.hutool.json.JSONUtil;
+import cn.jinterest.product.entity.AttrAttrgroupRelationEntity;
 import cn.jinterest.product.entity.AttrEntity;
+import cn.jinterest.product.service.AttrAttrgroupRelationService;
 import cn.jinterest.product.service.AttrService;
 import cn.jinterest.product.service.CategoryService;
 import cn.jinterest.product.vo.AttrGroupWithAttrsVo;
 import cn.jinterest.product.vo.SpuItemAttrGroupVo;
+import com.baomidou.mybatisplus.extension.service.additional.query.impl.QueryChainWrapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +37,9 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     @Autowired
     private AttrService attrService;
+
+    @Autowired
+    AttrAttrgroupRelationService attrAttrgroupRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -128,4 +135,15 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         return spuItemAttrGroupVos;
     }
 
+    @Override
+    public void deleteByIds(List<Long> asList) {
+        //1 删除属性分组
+        this.removeByIds(asList);
+        //2 删除关联关系
+        attrAttrgroupRelationService.delByAttrGroupIds(asList);
+
+    }
+
 }
+
+

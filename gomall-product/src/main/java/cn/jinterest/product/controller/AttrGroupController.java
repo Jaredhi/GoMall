@@ -66,6 +66,7 @@ public class AttrGroupController {
         attrAttrgroupRelationService.saveBatch(vos);
         return R.ok();
     }
+
     /**
      * 删除属性与分组的关联关系
      * @param attrGroupRelationVos
@@ -168,7 +169,9 @@ public class AttrGroupController {
     @RequestMapping("/delete")
     //@RequiresPermissions("product:attrgroup:delete")
     public R delete(@RequestBody Long[] attrGroupIds){
-		attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
+//		attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
+        //关联关系表也删除
+		attrGroupService.deleteByIds(Arrays.asList(attrGroupIds));
 
         return R.ok();
     }

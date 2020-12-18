@@ -17,5 +17,12 @@
         </foreach>
     </delete>
 
+    <delete id="deleteBatchRelationById">
+        delete from pms_attr_attrgroup_relation where
+        <foreach collection="asList" item="item">
+            attr_group_id=#{item}
+        </foreach>
+    </delete>
+
 
 </mapper>
