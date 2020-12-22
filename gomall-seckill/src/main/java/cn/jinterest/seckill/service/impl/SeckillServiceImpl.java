@@ -102,8 +102,8 @@ public class SeckillServiceImpl implements SeckillService {
                     // 问题 如果已存在，不能在redis中继续添加 场次id_skuid 这个信息
                     // TODO 判断是否是该场次的新秒杀商品添加进来
                     List<String> collect = session.getRelationSkus().stream().map(item -> item.getPromotionSessionId() + "_" + item.getSkuId().toString()).collect(Collectors.toList());
-
                     stringRedisTemplate.opsForList().leftPushAll(key, collect);
+                    stringRedisTemplate.expire(key,endTime-startTime,TimeUnit.MILLISECONDS);
                 }
             });
         }
@@ -137,8 +137,10 @@ public class SeckillServiceImpl implements SeckillService {
                         BeanUtils.copyProperties(seckillSkuVo, secKillSkuRedsTo);
 
                         // 3、设置当前商品的秒杀时间信息
-                        secKillSkuRedsTo.setStartTime(session.getStartTime().getTime());
-                        secKillSkuRedsTo.setEndTime(session.getEndTime().getTime());
+                        long startTime = session.getStartTime().getTime();
+                        long endTime = session.getEndTime().getTime();
+                        secKillSkuRedsTo.setStartTime(startTime);
+                        secKillSkuRedsTo.setEndTime(endTime);
 
                         // 4、设置商品的随机码
                         String token = UUID.randomUUID().toString().replace("-", "");
@@ -147,13 +149,17 @@ public class SeckillServiceImpl implements SeckillService {
                         // 缓存到redis
                         String json = JSON.toJSONString(secKillSkuRedsTo);
                         ops.put(seckillSkuVo.getPromotionSessionId().toString() + "_" + seckillSkuVo.getSkuId().toString(), json);
+                        ops.expire(endTime-startTime,TimeUnit.MILLISECONDS);
 
                         // 5、使用库存作为分布式信号量 限流
                         RSemaphore semaphore = redissonClient.getSemaphore(SKU_STOCK_SEMAPHORE + token);
+
                         BigDecimal seckillCount = seckillSkuVo.getSeckillCount();
                         int count = Integer.parseInt(seckillCount.toString());
                         // 设置信号量，商品可以秒杀的件数昨为信号量
                         semaphore.trySetPermits(count);
+
+
                     }
 
                 });
