@@ -1,8 +1,11 @@
 package cn.jinterest.ware.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import cn.jinterest.common.vo.SkuInfoVo;
+import cn.jinterest.ware.feign.ProductFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +33,8 @@ public class WareInfoController {
     @Autowired
     private WareInfoService wareInfoService;
 
+
+
     /**
      * 列表
      */
@@ -39,6 +44,16 @@ public class WareInfoController {
         PageUtils page = wareInfoService.queryPage(params);
 
         return R.ok().put("page", page);
+    }
+
+    /**
+     * 获取没有添加库存的sku信息
+     */
+    @RequestMapping("/getSkuInfo")
+    public R getSkuInfo(){
+        List<SkuInfoVo> skuInfo = wareInfoService.getSkuInfo();
+
+        return R.ok().put("skus",skuInfo);
     }
 
 

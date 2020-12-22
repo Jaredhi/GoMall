@@ -1,8 +1,10 @@
 package cn.jinterest.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import cn.jinterest.common.vo.SkuInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,7 +51,14 @@ public class SkuInfoController {
 
         return R.ok().put("page", page);
     }
-
+    /**
+     * 得到所有sku信息
+     */
+    @RequestMapping("/info")
+    public R getSkuInfo(){
+        List<SkuInfoVo> skus = skuInfoService.getSkus();
+        return R.ok().put("skus",skus);
+    }
 
     /**
      * 信息

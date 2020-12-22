@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.ware.entity.WareSkuEntity;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -53,5 +54,7 @@ public interface WareSkuService extends IService<WareSkuEntity> {
      * @param orderTo
      */
     void buidUnlockStock(OrderTo orderTo);
+
+
 }
 

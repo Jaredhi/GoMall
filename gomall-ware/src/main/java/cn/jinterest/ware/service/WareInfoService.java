@@ -1,9 +1,11 @@
 package cn.jinterest.ware.service;
 
+import cn.jinterest.common.vo.SkuInfoVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.jinterest.common.utils.PageUtils;
 import cn.jinterest.ware.entity.WareInfoEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,7 @@ import java.util.Map;
 public interface WareInfoService extends IService<WareInfoEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    List<SkuInfoVo> getSkuInfo();
 }
 

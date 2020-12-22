@@ -18,5 +18,9 @@
         <result property="saleCount" column="sale_count"/>
     </resultMap>
 
+    <select id="getSkus" resultType="cn.jinterest.common.vo.SkuInfoVo">
+       select sku_id , sku_name from pms_sku_info
+    </select>
+
 
 </mapper>

@@ -1,6 +1,7 @@
 package cn.jinterest.product.service.impl;
 
 import cn.jinterest.common.utils.R;
+import cn.jinterest.common.vo.SkuInfoVo;
 import cn.jinterest.product.entity.SkuImagesEntity;
 import cn.jinterest.product.entity.SpuInfoDescEntity;
 import cn.jinterest.product.feign.SecKillFeignService;
@@ -202,6 +203,12 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         CompletableFuture.allOf(saleFuture, descFuture, baseAttrFuture, imageFuture, secKillFuture).get();
 
         return skuItemVo;
+    }
+
+    @Override
+    public List<SkuInfoVo> getSkus() {
+
+        return this.baseMapper.getSkus();
     }
 
 }

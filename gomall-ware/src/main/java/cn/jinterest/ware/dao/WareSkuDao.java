@@ -47,4 +47,5 @@ public interface WareSkuDao extends BaseMapper<WareSkuEntity> {
      * @param count 需要解锁的数量
      */
     void unLockStock(@Param("skuId") Long skuId, @Param("wareId") Long wareId, @Param("count") Integer count);
+
 }
