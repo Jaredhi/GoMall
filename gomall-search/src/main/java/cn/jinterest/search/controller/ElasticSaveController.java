@@ -33,7 +33,7 @@ public class ElasticSaveController {
         try {
             flag = productSaveService.productStatusUp(esModels);
         } catch (Exception e) {
-            log.error("ElasticSaveController商品上架产生了错误：{}",e);
+            log.error("ElasticSaveController商品上架产生了错误：{}",e.getMessage());
             return R.error(BizCodeEnume.PRODUCT_UP_TO_ES_EXCETION.getCode(), BizCodeEnume.PRODUCT_UP_TO_ES_EXCETION.getMsg());
         }
         if (!flag) {

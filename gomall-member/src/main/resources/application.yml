@@ -10,7 +10,7 @@ spring:
   datasource:
     username: root
     password: rootroot
-    url: jdbc:mysql://192.168.108.131:3306/gomall_ums?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://192.168.108.132:3306/gomall_ums?useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     # nacos配置

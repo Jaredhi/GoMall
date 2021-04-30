@@ -22,7 +22,7 @@ public class MyRedissonConfig {
         // 单Redis节点模式
         // 1、创建配置
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://192.168.108.131:6379");
+        config.useSingleServer().setAddress("redis://192.168.108.132:6379");
         // 2、根据config创建RedissonClient示例
         RedissonClient redisson = Redisson.create(config);
         return redisson;

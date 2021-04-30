@@ -1,6 +1,7 @@
 spring:
   cloud:
     alicloud:
+      # 目前阿里云是禁用
       access-key: LTAI4GBwjzbDYoMyH5xgFfT1
       secret-key: M800BadHvRvdSGMmKrv2Uf9JBIkE46
       oss:

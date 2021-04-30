@@ -115,7 +115,7 @@ spring:
 
 # zipkin 配置
   zipkin:
-    base-url: http://192.168.108.131:9411/
+    base-url: http://192.168.108.132:9411/
     discovery-client-enabled: false
     sender: web
   sleuth:

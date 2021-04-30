@@ -8,5 +8,5 @@ feign:
 
 spring:
   redis:
-    host: 192.168.108.131
+    host: 192.168.108.132
     port: 6379

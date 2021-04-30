@@ -18,8 +18,10 @@ public class GomallSessionConfig {
     @Bean
     public CookieSerializer cookieSerializer() {
         DefaultCookieSerializer serializer = new DefaultCookieSerializer();
-        serializer.setCookieName("GOSESSION");  // 设置cookie名字
-        serializer.setDomainName("gomall.com"); // 指定域名
+        // 设置cookie名字
+        serializer.setCookieName("GOSESSION");
+        // 指定域名
+        serializer.setDomainName("gomall.com");
         return serializer;
     }
 

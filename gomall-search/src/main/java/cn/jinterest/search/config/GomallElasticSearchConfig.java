@@ -25,7 +25,7 @@ public class GomallElasticSearchConfig {
     public RestHighLevelClient esestClient() {
         RestHighLevelClient client = new RestHighLevelClient(
                 RestClient.builder(
-                        new HttpHost("192.168.108.131", 9200, "http")));
+                        new HttpHost("192.168.108.132", 9200, "http")));
 
         return client;
     }

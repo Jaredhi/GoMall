@@ -172,10 +172,10 @@
                   <li>近三个月订单</li>
                   <li>今年内订单</li>
                   <li>今年内订单</li>
-                  <li>2016年订单</li>
-                  <li>2015年订单</li>
-                  <li>2014年订单</li>
-                  <li>2014年以前订单</li>
+                  <li>2020年订单</li>
+                  <li>2019年订单</li>
+                  <li>2018年订单</li>
+                  <li>2017年以前订单</li>
                 </ol>
               </li>
               <li class="detailsLi">订单详情</li>
@@ -232,11 +232,11 @@
             </td>
             <td th:if="${stat.index == 0}" th:rowspan="${stat.size}">
               <ul>
-                <li style="color:#71B247;" th:if="${order.status == 0}">待付款</li>
-                <li style="color:#71B247;" th:if="${order.status == 1}">已付款</li>
+                <li style="color:#71B247;" th:if="${order.status == 4}">待付款</li>
+                <li style="color:#71B247;" th:if="${order.status == 0}">已付款</li>
                 <li style="color:#71B247;" th:if="${order.status == 2}">已发货</li>
                 <li style="color:#71B247;" th:if="${order.status == 3}">已完成</li>
-                <li style="color:#71B247;" th:if="${order.status == 4}">已取消</li>
+                <li style="color:#71B247;" th:if="${order.status == 1}">已取消</li>
                 <li style="color:#71B247;" th:if="${order.status == 5}">售后中</li>
                 <li style="color:#71B247;" th:if="${order.status == 6}">售后完成</li>
                 <li style="margin:4px 0;" class="hide"><i class="table_i2"></i>跟踪<i class="table_i3"></i>
